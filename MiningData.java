@@ -5,8 +5,8 @@
  * Mined data classes for each accident:
  * - Date (String)
  * - Fatalities (int)
- *  
- * Data is then exported to a .csv file.
+ *
+ * Performance note: An implementation using ArrayList seems nearly twice as fast as that using LinkedList.
  * 
  * @author Tushar
  */
