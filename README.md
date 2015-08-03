@@ -13,7 +13,7 @@ Programming Assignment for Data Visualization by UIUC on Coursera.
 
 * Finally, DeathsPerYear.R maps each year to the number of deaths in that year in a matrix, which is exported as yet another .csv file.
 
-* Then we make the scatter plot - Historica Air-Safety Data.png
+* Then we make the scatter plot - Historical Air-Safety Data.png
 
 ## About the quality of the database
 
