@@ -28,7 +28,6 @@ public class MiningData {
         }
         FileWriter o = new FileWriter(output);                          
         PrintWriter out = new PrintWriter(o);
-        output.createNewFile();
         while (year <= 2015) {
             String tempAdd = new String();
             Scanner readData;
