@@ -1,7 +1,7 @@
 # AirCrashAnalysis
 Programming Assignment for Data Visualization by UIUC on Coursera.
 
-* MiningData.java accesses an online database and obtains the needed data. Exports a .csv file. 
+* MiningData.java accesses an online database (http://www.planecrashinfo.com/database.htm) and obtains the needed data. Exports a .csv file. 
 
 * The file is then supposed to be cleaned up in Excel. 
 
