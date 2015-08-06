@@ -1,19 +1,20 @@
 # AirCrashAnalysis
-Programming Assignment for Data Visualization by UIUC on Coursera.
 
-* MiningData.java accesses an online database (http://www.planecrashinfo.com/database.htm) and obtains the needed data. Exports a .csv file. 
+### Programming Assignment for Data Visualization by UIUC on Coursera. 
 
-* The file is then supposed to be cleaned up in Excel. 
+To reproduce the results:
+
+* DataAPI.java accesses an online database (http://www.planecrashinfo.com/database.htm) and obtains the needed data. Exports a .tsv file. 
+
+* The file is then supposed to be cleaned up in Excel. Remove the extra columns and column names, leaving only the dates and the fatalities. 
+
+* Be careful about the formatting. Date should be in a DD-MMM-YYYY format. I stored the new file in a tab-separated text file, because .tsv doesn't save the date's format.
 
 * ProcessFrame.R then converts the date vs. deaths data to year-only vs. deaths data. 
 
-* Output.csv contains only the #deaths column from the original .csv file. 
+* Finally, DeathsPerYear.R maps each year to the number of deaths in that year in a matrix, which is exported as a .csv file.
 
-* Output.txt is supposed to contain that as well as the dates corresponding to each incident, except that I couldn't get it to work properly in R when both these values are included. Therefore, I only used the dates from output.txt (from the original .csv file as well, of course). 
-
-* Finally, DeathsPerYear.R maps each year to the number of deaths in that year in a matrix, which is exported as yet another .csv file.
-
-* Then we make the scatter plot - Historical Air-Safety Data.png
+* Then we make the scatter plot - Historical Air-Safety Data.png. Either in R, or in Excel using the exported file.
 
 ## About the quality of the database
 
