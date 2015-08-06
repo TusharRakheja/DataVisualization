@@ -4,7 +4,7 @@
 
 To reproduce the results:
 
-* DataAPI.java accesses an online database (http://www.planecrashinfo.com/database.htm) and obtains the needed data. Exports a .tsv file. 
+* Data.java accesses an online database (http://www.planecrashinfo.com/database.htm) and obtains the needed data. Exports a .tsv file. 
 
 * The file is then supposed to be cleaned up in Excel. Remove the extra columns and column names, leaving only the dates and the fatalities. 
 
