@@ -12,10 +12,10 @@ import java.net.URL;
 import java.util.*;
 import java.io.*;
 
-public class DataAPI {
+public class Data {
     private static final String urlFeed = new String("http://planecrashinfo.com/");
     private Integer start, end;
-    public DataAPI() {
+    public Data() {
         start = 1920; 
         end = 2015;
     }
@@ -81,7 +81,7 @@ public class DataAPI {
                         if (!str2[i].equals("")) {
                             out.print(str2[i]);
                         }                       
-                        if (i != str2.length - 2) out.print(", ");
+                        if (i != str2.length - 2) out.print(" , ");
                     }
                     out.print("\t" + str2[str2.length-1].trim() + "\t"); // Keep the most general location distinct.
                     out.print(operator.trim() + "\t");
@@ -100,12 +100,12 @@ public class DataAPI {
             year++;
         }
         out.close();
-    }    /*
+    }    
     public static void main(String[] args) throws IOException {          // Unit testing. 
         Integer start, end;
         String response;
         Scanner input = new Scanner(System.in);
-        DataAPI data = new DataAPI();
+        Data data = new Data();
         System.out.print("Enter the first year for the dataset: ");
         start = input.nextInt();
         System.out.print("Enter the last year for the dataset: ");
@@ -131,5 +131,5 @@ public class DataAPI {
             System.out.print("Fetching data: ... ");
             data.retrieve();
         }
-    }*/
+    }
 }
