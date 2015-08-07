@@ -11,5 +11,7 @@ processFrame <- function(file) {
      frame[, 1] <- format(frame[, 1], "%Y")          # Convert to Year vs Deaths.
      frame[, 2] <- as.character(frame[, 2])
      frame[, 2] <- as.numeric(frame[,2])
+     good <- !is.na(frame[, 2])                      # Remove data with NA values.
+     frame <- frame[good, ]
      frame
 }
