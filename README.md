@@ -18,4 +18,4 @@ To reproduce the results:
 
 ## About the quality of the database
 
-It's pretty good. The data seems to be accurate, and even somewhat comprehensive. The scatter plot does look quite a bit like this one - https://en.wikipedia.org/wiki/Aviation_accidents_and_incidents#/media/File:ACRO_fatalities_1918-2009.svg.
+It's pretty good. The data seems to be accurate, and even somewhat comprehensive. The scatter plot does look quite a bit like this one - https://en.wikipedia.org/wiki/File:ACRO_fatalities_1918-2009.svg
