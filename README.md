@@ -23,7 +23,7 @@ Contains Java code to make an interactive network-based visualization of a commu
 
 You will need StdDraw.java from [here](http://introcs.cs.princeton.edu/java/stdlib/).
 
-**Activating additional things**
+**Additional**
 
 * Adding a text box for network size of current node - Uncomment lines 305-306, 317-319, and 324-325 in Dolphin.java
 
