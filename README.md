@@ -7,9 +7,9 @@ Contains Java code to make an interactive network-based visualization of a commu
 
 * The data was put together by Lusseau et al. (2003) [1], and can be found [here](http://networkdata.ics.uci.edu/data/dolphins/).
 
-* It models the data as a network with nodes on a ring. I wanted to try edge bundling, hence the ring, but as of now it's not been done. Later. 
+* It models the data as a network with nodes on a ring. I wanted to try edge-bundling, hence the ring, but as of now it's not been done. Later. 
 
-* Hovering over a certain node will highlight its connections. 
+* Hovering over a certain node will highlight its connections. The size of each node is proportional to its number of connections (or network size).
 
 **To do**
 
