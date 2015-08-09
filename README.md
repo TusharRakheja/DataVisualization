@@ -3,13 +3,13 @@ Contains Java code to make an interactive network-based visualization of a commu
 
 **What it does**
 
-* Dolphin.java is the main class. It defines the Dolphin data type, and accesses a small online database modeling communication data amongst a community of 62 dolphins as a graph or a network. 
+* Dolphin.java is the main class. It defines the Dolphin data type, and accesses a small online database modeling association data amongst a community of 62 dolphins as a graph or a network. 
 
 * The data was put together by Lusseau et al. (2003) [1], and can be found [here](http://networkdata.ics.uci.edu/data/dolphins/).
 
 * It models the data as a network with nodes on a ring. I wanted to try edge-bundling, hence the ring, but as of now it's not been done. Later. 
 
-* Hovering over a certain node will highlight its connections. The size of each node is proportional to its number of connections (or network size).
+* Hovering over a certain node will highlight its associations. The size of each node is proportional to its number of connections (or network size).
 
 **To do**
 
@@ -22,6 +22,14 @@ Contains Java code to make an interactive network-based visualization of a commu
 **Dependencies**
 
 You will need StdDraw.java from [here](http://introcs.cs.princeton.edu/java/stdlib/).
+
+**Activating additional things**
+
+* Adding a text box for network size of current node - Uncomment lines 305-306, 317-319, and 324-325 in Dolphin.java
+
+* Writing Network Size vs Frequency(Network Size) data to a file - Uncomment line 304 in Dolphin.java
+
+* Plotting the aforementioned data in R - PlotDistribution.R in src.
 
 **References**
 
