@@ -258,8 +258,10 @@ public class Dolphin implements Comparable<Dolphin> {
         }
         StdDraw.setPenColor(StdDraw.BLACK);
         for (int i = 0; i < 62; i++) {
-            dolphins[i].drawNode(0.01, 0.01);
+            dolphins[i].drawNodeOnly(0.01, StdDraw.BLACK);
         }
+        //StdDraw.setPenRadius(0.002);
+        //StdDraw.rectangle(60, 652, 50, 10);
         double tolerance = 65;
         while (true) {
             // the location (x, y) of the mouse
@@ -270,10 +272,15 @@ public class Dolphin implements Comparable<Dolphin> {
                     dolphins[i].drawNetworkEdges(0.0020, StdDraw.RED);
                     dolphins[i].drawNodeOnly(0.01, StdDraw.RED);
                     dolphins[i].drawNetworkNodes(0.01, StdDraw.RED);
+                    //StdDraw.setPenColor(StdDraw.BLACK);
+                    //String current = "Connections: " + dolphins[i].sizeOfNetwork();
+                    //StdDraw.text(60, 650, current);
                     while (distSquared(dolphins[i].x(), dolphins[i].y(), x, y) <= tolerance) {
                         x = StdDraw.mouseX();
                         y = StdDraw.mouseY();
                     }
+                    //StdDraw.setPenColor(StdDraw.WHITE);
+                    //StdDraw.filledRectangle(60, 650, 49, 7);
                     dolphins[i].drawNetworkEdges(0.0020, StdDraw.WHITE);  // Doing this
                     dolphins[i].drawNetworkEdges(0.0020, StdDraw.WHITE);  // twice will
                     dolphins[i].drawNetworkEdges(0.0020, edgeColor);      // delay the 
