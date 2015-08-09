@@ -1,7 +1,7 @@
 # Dolphins of Doubtful Sound
 Contains Java code to make an interactive network-based visualization of a community of dolphins living off Doubtful Sound, New Zealand.
 
-*_What it does_*
+**What it does**
 
 * Dolphin.java is the main class. It defines the Dolphin data type, and accesses a small online database modeling communication data amongst a community of 62 dolphins as a graph or a network. 
 
@@ -11,7 +11,7 @@ Contains Java code to make an interactive network-based visualization of a commu
 
 * Hovering over a certain node will highlight its connections. 
 
-*_To do_*
+**To do**
 
 * Edge-bundling in this graph. 
 
@@ -19,10 +19,10 @@ Contains Java code to make an interactive network-based visualization of a commu
 
 * Maybe an entirely different visualization technique.
 
-*_Dependencies_*
+**Dependencies**
 
 You will need StdDraw.java from [here](http://introcs.cs.princeton.edu/java/stdlib/).
 
-*_References_*
+**References**
 
 [1]  D. Lusseau, K. Schneider, O. J. Boisseau, P. Haase, E. Slooten, and S. M. Dawson, The bottlenose dolphin community of Doubtful Sound features   a large proportion of long-lasting associations, Behavioral Ecology and Sociobiology 54, 396-405 (2003).
