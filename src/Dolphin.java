@@ -116,8 +116,8 @@ public class Dolphin implements Comparable<Dolphin> {
      */
     public void drawNode(double rDolphin, double rLabel) {
         StdDraw.setPenColor(StdDraw.BLACK);
-        StdDraw.setPenRadius(rDolphin);
-        StdDraw.point(x, y);  
+        StdDraw.setPenRadius(rDolphin + sizeOfNetwork()/650.0);  // The more the connections,
+        StdDraw.point(x, y);                                     // the bigger the node.
         StdDraw.setPenRadius(rLabel);
         double xText = cX + (radius + delta)* Math.cos(theta * (Math.PI/180.0));
         double yText = cY + (radius + delta)* Math.sin(theta * (Math.PI/180.0));
@@ -133,7 +133,7 @@ public class Dolphin implements Comparable<Dolphin> {
      */
     public void drawNodeOnly(double rDolphin, Color color) {
         StdDraw.setPenColor(color);
-        StdDraw.setPenRadius(rDolphin);
+        StdDraw.setPenRadius(rDolphin + sizeOfNetwork()/650.0);
         StdDraw.point(x, y);  
     }
     
@@ -207,7 +207,7 @@ public class Dolphin implements Comparable<Dolphin> {
      */
     public static void main(String[] args) throws IOException {
         Dolphin.setRadius(270);
-        Dolphin.setDelta(40);
+        Dolphin.setDelta(42);
         Font f = new Font("SansSerif", Font.PLAIN, 13);
         StdDraw.setCanvasSize(800, 670);
         StdDraw.setXscale(0, 800);
@@ -247,6 +247,10 @@ public class Dolphin implements Comparable<Dolphin> {
             dolphins[dolph1].addToNetwork(dolphins[dolph2]);
             read.nextLine();   // Get to the next edge.
         }
+        StdDraw.setPenColor(StdDraw.BLACK);
+        for (int i = 0; i < 62; i++) {
+            dolphins[i].drawNode(0.01, 0.01);
+        }
         Color edgeColor = new Color(51, 102, 255);
         StdDraw.setPenColor(edgeColor);
         for (int i = 0; i < 62; i++) {
@@ -256,7 +260,7 @@ public class Dolphin implements Comparable<Dolphin> {
         for (int i = 0; i < 62; i++) {
             dolphins[i].drawNode(0.01, 0.01);
         }
-        double tolerance = 5;
+        double tolerance = 65;
         while (true) {
             // the location (x, y) of the mouse
             double x = StdDraw.mouseX();
@@ -264,7 +268,7 @@ public class Dolphin implements Comparable<Dolphin> {
             for (int i = 0; i < 62; i++) {
                 if (distSquared(dolphins[i].x(), dolphins[i].y(), x, y) <= tolerance) {
                     dolphins[i].drawNetworkEdges(0.0020, StdDraw.RED);
-                    dolphins[i].drawNodeOnly(0.01, StdDraw.BLACK);
+                    dolphins[i].drawNodeOnly(0.01, StdDraw.RED);
                     dolphins[i].drawNetworkNodes(0.01, StdDraw.RED);
                     while (distSquared(dolphins[i].x(), dolphins[i].y(), x, y) <= tolerance) {
                         x = StdDraw.mouseX();
