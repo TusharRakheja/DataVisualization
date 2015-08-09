@@ -1,8 +1,8 @@
 /**
  * This file contains code for mining data from http://planecrashinfo.com/
  * No API found, so, URL and sample-HTML-code trickery employed.
- * I'll make my own API then.
  * 
+ * I'll make my own API then.
  * Performance note: An implementation using ArrayList seems nearly twice as fast as that using LinkedList.
  * 
  * @author Tushar
@@ -21,6 +21,7 @@ public class Data {
     }
     /**
      * Set a starting and ending year for the dataset.
+     * 
      * @param first
      * @param last
      */
@@ -31,7 +32,8 @@ public class Data {
     /**
      * Start retrieving data. Default filename is "Output".
      * Extensions is .tsv and unchangeable.
-     * @param filename (optional)
+     * 
+     * @param filename  filename (optional)
      * @throws IOException 
      */
     public void retrieve(String... filename) throws IOException {        // Either specify a filename or go with the default.
