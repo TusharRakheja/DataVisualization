@@ -192,10 +192,51 @@ public class Dolphin implements Comparable<Dolphin> {
     
     /**
      * Returns the size of this dolphin's network.
+     * 
      * @return  the number other dolphins in this one's network (network size).
      */
     public int sizeOfNetwork() {
         return network.size();
+    }
+    
+    /**
+     * Returns the average network size.
+     * 
+     * @param dolphins  the array containing the dolphin nodes.
+     * @return  the mean of all the network sizes.
+     */
+    public static double meanNetworkSize(Dolphin[] dolphins) {
+        double mean = 0;
+        for (int i = 0; i < 62; i++) mean += dolphins[i].sizeOfNetwork();
+        return mean / 62.0;
+    }
+    
+    /**
+     * Writes the network sizes their frequencies in a file (in ascending order).
+     * 
+     * @param dolphins  the array containing the dolphin nodes.
+     * @param filename  the filename.
+     * @throws IOException 
+     */
+    public static void writeStatsToFile(Dolphin[] dolphins, String filename) throws IOException {
+        Dolphin[] dolphins2 = new Dolphin[62];
+        System.arraycopy(dolphins, 0, dolphins2, 0, 62);
+        Arrays.sort(dolphins2);
+        File output = new File(filename);
+        FileWriter o = new FileWriter(output);                          
+        PrintWriter out = new PrintWriter(o);
+        int count = 0; int size = dolphins2[0].sizeOfNetwork();
+        for (int i = 0; i < 62; i++) {
+            if (dolphins2[i].sizeOfNetwork() == size) {
+                count++;
+            }
+            else {
+                out.println(size + "\t" + count);
+                count = 1;
+                size = dolphins[i].sizeOfNetwork();
+            }
+        }
+        out.close();
     }
     
     /**
@@ -260,6 +301,7 @@ public class Dolphin implements Comparable<Dolphin> {
         for (int i = 0; i < 62; i++) {
             dolphins[i].drawNodeOnly(0.01, StdDraw.BLACK);
         }
+        //writeStatsToFile(dolphins, "Output.txt");
         //StdDraw.setPenRadius(0.002);
         //StdDraw.rectangle(60, 652, 50, 10);
         double tolerance = 65;
