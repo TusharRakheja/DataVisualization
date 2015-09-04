@@ -1,2 +1,5 @@
 /build/
+/nbproject/
 dolphins.txt
+build.xml
+manifest.mf
