@@ -1,2 +1,6 @@
 /build/
 /dist/
+Output.tsv
+Output.xlsx
+build.xml
+/nbproject
