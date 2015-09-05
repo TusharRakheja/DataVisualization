@@ -13,8 +13,8 @@ private:
 		float *column;
 	};
 	Matrix *row;								// The augmented matrix.
-	int n;										// The number of data points (= degree of polynomial).
-	void Gauss(Matrix *);						// Performs Gaussian elimination on the augmented matrix.
+	int n;									// The number of data points (= degree of polynomial).
+	void Gauss(Matrix *);							// Performs Gaussian elimination on the augmented matrix.
 	void Jordan(Matrix *);						// Converts the REF Matrix obtained from Gauss() to RREF.
 public:
 	Polynomial(string);							// Gets the data set from the filename (string) and generates the augmented matrix.
