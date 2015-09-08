@@ -34,15 +34,27 @@ void Polynomial::Gauss() {
 		for (int j = i; j <= n; j++) {						
 			matrix[i][j] /= divisor;				    // Divide matrix(i,j) for j in {0,...,n} by matrix(i,0).
 		}
-		cout << *this << endl;
+		//cout << *this << endl;
 		for (int row = i + 1; row < n; row++) {		                    // Refers to the subsequent rows.
 			float multiplier = matrix[row][i];
 			for (int j = 0; j <= n; j++) {				    // Refers to the columns (of each row).
 				matrix[row][j] -= (matrix[i][j] * multiplier);	    // matrix(row) --> matrix(row) - matrix(i) * matrix(row, 0). 	
 			}
-			cout << *this << endl;
+			//cout << *this << endl;
 		}
 	}
+	Jordan();
+}
+
+void Polynomial::Jordan() {						
+	for (int i = n - 1; i >= 0; i--) {
+		for (int row = i - 1; row >= 0; row--) {
+			float multiplier = matrix[row][i];		 // Since in row 'i' of the matrix, the only non-zero element left is 1.
+			matrix[row][i] -= multiplier;
+			matrix[row][n] -= multiplier;
+		}
+	}
+	cout << *this;
 }
 
 ostream& operator<<(ostream &out, const Polynomial &p) {
