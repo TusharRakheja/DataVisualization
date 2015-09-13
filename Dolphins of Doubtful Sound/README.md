@@ -11,6 +11,10 @@ Contains Java code to make an interactive network-based visualization of a commu
 
 * Hovering over a certain node will highlight its associations. The size of each node is proportional to its number of associations (or network size).
 
+**Current ring plot**
+
+![CurrentPlot](https://github.com/TusharRakheja/DataVisualization/blob/master/Dolphins%20of%20Doubtful%20Sound/Sample%20Plot.png)
+
 **To do**
 
 * Edge-bundling in this graph. Fix purple-shade bug. Make it more efficient.
