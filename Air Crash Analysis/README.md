@@ -16,7 +16,7 @@ To reproduce the results:
 
 * Then we make the scatter plot - Historical Air-Safety Data.png. Either in R, or in Excel using the exported file.
 
-*Sample Plot*
+**Sample Plot**
 
 ![SamplePlot](https://github.com/TusharRakheja/DataVisualization/blob/master/Air%20Crash%20Analysis/Sample%20Plot.png)
 
