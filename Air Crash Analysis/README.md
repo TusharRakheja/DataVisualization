@@ -16,6 +16,10 @@ To reproduce the results:
 
 * Then we make the scatter plot - Historical Air-Safety Data.png. Either in R, or in Excel using the exported file.
 
+*Sample Plot*
+
+![SamplePlot](https://github.com/TusharRakheja/DataVisualization/blob/master/Air%20Crash%20Analysis/Sample%20Plot.png)
+
 ## About the quality of the database
 
 It's pretty good. The data seems to be accurate, and even somewhat comprehensive. The scatter plot does look quite a bit like this one - https://en.wikipedia.org/wiki/File:ACRO_fatalities_1918-2009.svg
