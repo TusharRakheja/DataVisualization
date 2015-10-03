@@ -7,7 +7,7 @@ import java.io.*;
  * @author <i> Tushar </i>
  */
 public class Dolphin implements Comparable<Dolphin> {
-    private static final double cX = 400.0, cY = 330.0;  // Coordinates of the canvas' center. 
+    private static final double cX = 400.0, cY = 335.0;  // Coordinates of the canvas' center. 
     private static double currentAngle = 0;              // The first dolphin will be along theta = 0 degrees.
     private static final double increment = 5.8064;      // Each subsequent dolphin's angle in polar coordinates (degrees).
     private static double radius = 300.0;                // Radius in polar coordinates (set according to canvas).
