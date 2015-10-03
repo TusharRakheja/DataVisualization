@@ -2,6 +2,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.Scanner;
 
 /**
@@ -58,6 +59,8 @@ public class Ring {
             dolphins[dolph1].addToNetwork(dolphins[dolph2]);
             read.nextLine();   // Get to the next edge.
         }
+        Arrays.sort(dolphins);
+        Dolphin.setAngle(dolphins);
         StdDraw.setPenColor(StdDraw.BLACK);
         for (int i = 0; i < 62; i++) {
             dolphins[i].drawNode(0.01, 0.01);
@@ -65,7 +68,7 @@ public class Ring {
         Color edgeColor = new Color(51, 102, 255);
         StdDraw.setPenColor(edgeColor);
         for (int i = 0; i < 62; i++) {
-            dolphins[i].drawNetwork(0.0020);
+            dolphins[i].drawNetwork(0.0020, dolphins);
         }
         StdDraw.setPenColor(StdDraw.BLACK);
         for (int i = 0; i < 62; i++) {
@@ -81,9 +84,9 @@ public class Ring {
             double y = StdDraw.mouseY();
             for (int i = 0; i < 62; i++) {
                 if (Dolphin.distSquared(dolphins[i].x(), dolphins[i].y(), x, y) <= tolerance) {
-                    dolphins[i].drawNetworkEdges(0.0020, StdDraw.RED);
+                    dolphins[i].drawNetworkEdges(0.0020, StdDraw.RED, dolphins);
                     dolphins[i].drawNodeOnly(0.01, StdDraw.RED);
-                    dolphins[i].drawNetworkNodes(0.01, StdDraw.RED);
+                    dolphins[i].drawNetworkNodes(0.01, StdDraw.RED, dolphins);
                     //StdDraw.setPenColor(StdDraw.BLACK);
                     //String current = "Connections: " + dolphins[i].sizeOfNetwork();
                     //StdDraw.text(60, 650, current);
@@ -93,12 +96,12 @@ public class Ring {
                     }
                     //StdDraw.setPenColor(StdDraw.WHITE);
                     //StdDraw.filledRectangle(60, 650, 49, 7);
-                    dolphins[i].drawNetworkEdges(0.0020, StdDraw.WHITE);  // Doing this
-                    dolphins[i].drawNetworkEdges(0.0020, StdDraw.WHITE);  // twice will
-                    dolphins[i].drawNetworkEdges(0.0020, edgeColor);      // delay the 
-                    dolphins[i].drawNetworkEdges(0.0020, edgeColor);      // purple shade.
+                    dolphins[i].drawNetworkEdges(0.0020, StdDraw.WHITE, dolphins);  // Doing this
+                    dolphins[i].drawNetworkEdges(0.0020, StdDraw.WHITE, dolphins);  // twice will
+                    dolphins[i].drawNetworkEdges(0.0020, edgeColor, dolphins);      // delay the 
+                    dolphins[i].drawNetworkEdges(0.0020, edgeColor, dolphins);      // purple shade.
                     dolphins[i].drawNodeOnly(0.01, StdDraw.BLACK);
-                    dolphins[i].drawNetworkNodes(0.01, StdDraw.BLACK);
+                    dolphins[i].drawNetworkNodes(0.01, StdDraw.BLACK, dolphins);
                 }
             }
         }
