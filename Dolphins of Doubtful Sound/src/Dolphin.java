@@ -13,25 +13,12 @@ public class Dolphin implements Comparable<Dolphin> {
     private static double radius = 300.0;                // Radius in polar coordinates (set according to canvas).
     private static double delta = 2.0;                   // Controls separation between a dolphin node and its name (label).
     
-    /** The alternate compare mechanism. Compares by angle. */
-    private static final Comparator<Dolphin> By_Angle = new Compare();
-    
-    /** The class that implements the compare() method for the By_Angle comparator. */
-    private static final class Compare implements Comparator<Dolphin> {
-        @Override
-        public int compare(Dolphin o1, Dolphin o2) {
-            if (o1.theta < o2.theta) return -1;
-            else if (o1.theta > o2.theta) return 1;
-            else return 0;
-        }
-    }
-   
-    private int id;                                      // Signifies array index. Also used in edge connection.
+    private int id;                                      // Signifies array index (unsorted). Also used in edge connection.
     private String label;                                // The dolphin's name.
     private double x, y, theta;                          // Cartesian coordinates.
-    private ArrayList<Dolphin> network;                  // The dolphins that this one communicated with.
+    private ArrayList<Integer> network;                  // The dolphins that this one communicated with (by ID).
     
-    /**
+    /**r
      * This method is used to set the radius for the visualization.
      * 
      * @param r  the new radius of the peripheral ring for the dolphin graph.
@@ -59,10 +46,19 @@ public class Dolphin implements Comparable<Dolphin> {
     public Dolphin(int id, String label) {
         this.id = id;
         this.label = label;
-        this.theta = currentAngle;
         network = new ArrayList<>();
-        this.setCoordinates();
-        currentAngle += increment;
+    }
+    
+    /**
+     * Sets the angle for the current dolphin.
+     * @param dolphins the set of all dolphins.
+     */
+    public static void setAngle(Dolphin[] dolphins) {
+        for (Dolphin dolphin : dolphins) {
+            dolphin.theta = currentAngle;
+            dolphin.setCoordinates();
+            currentAngle += increment;
+        }
     }
     
     /**
@@ -83,8 +79,12 @@ public class Dolphin implements Comparable<Dolphin> {
      */
     @Override
     public int compareTo(Dolphin that) {
-        if (this.sizeOfNetwork() < that.sizeOfNetwork()) return -1;
-        else if (this.sizeOfNetwork() > that.sizeOfNetwork()) return 1;
+        if (this.sizeOfNetwork() < that.sizeOfNetwork()) {
+            return -1;
+        }
+        else if (this.sizeOfNetwork() > that.sizeOfNetwork()) {
+            return 1;
+        }
         else return 0;
     }
     
@@ -136,13 +136,14 @@ public class Dolphin implements Comparable<Dolphin> {
     /**
      * Draws the edges from this dolphin to all the other dolphins in the network.
      * 
-     * @param rEdge  the radius of the pen when drawing the edge.
+     * @param rEdge the radius of the pen when drawing the edge.
+     * @param dolphins the set of all dolphins (array).
      */
-    public void drawNetwork(double rEdge) {
+    public void drawNetwork(double rEdge, Dolphin[] dolphins) {
         StdDraw.setPenRadius(rEdge);
-        for (Dolphin that : this.network) {
-            StdDraw.line(this.x, this.y, that.x(), that.y());
-        }
+        for (Dolphin dolphin : dolphins) 
+            if (this.network.contains(dolphin.id())) 
+                StdDraw.line(this.x, this.y, dolphin.x(), dolphin.y());
     }
     
     /**
@@ -150,27 +151,29 @@ public class Dolphin implements Comparable<Dolphin> {
      * 
      * @param rEdge  the radius of the pen when drawing the edge.
      * @param color  the color of the edges.
+     * @param dolphins the set of all dolphins (array).
      */
-    public void drawNetworkEdges(double rEdge, Color color) {
+    public void drawNetworkEdges(double rEdge, Color color, Dolphin[] dolphins) {
         StdDraw.setPenRadius(rEdge);
         StdDraw.setPenColor(color);
-        for (Dolphin that : this.network) {
-            StdDraw.line(this.x, this.y, that.x(), that.y());
-        }
+        for (Dolphin dolphin : dolphins) 
+            if (this.network.contains(dolphin.id())) 
+                 StdDraw.line(this.x, this.y, dolphin.x(), dolphin.y());            
     }
     
     /**
      * Draws the dolphins in this dolphin's network.
      * 
      * @param rEdge
-     * @param color 
+     * @param color
+     * @param dolphins the set of all dolphins (array).
      */
-    public void drawNetworkNodes(double rEdge, Color color) {
+    public void drawNetworkNodes(double rEdge, Color color, Dolphin[] dolphins) {
         StdDraw.setPenRadius(rEdge);
         StdDraw.setPenColor(color);
-        for (Dolphin that : this.network) {
-            that.drawNodeOnly(rEdge, color);
-        }
+        for (Dolphin dolphin : dolphins) 
+            if (this.network.contains(dolphin.id()))
+                dolphin.drawNodeOnly(rEdge, color);
     }
     
     /**
@@ -180,10 +183,18 @@ public class Dolphin implements Comparable<Dolphin> {
      * @param that  the dolphin this communicated with. 
      */
     public void addToNetwork(Dolphin that) {
-        if (!network.contains(that)) { 
-            network.add(that);
-            that.network.add(this); 
+        if (!network.contains(that.id())) { 
+            network.add(that.id());
+            that.network.add(this.id()); 
         }
+    }
+    
+    /**
+     * Returns the id of the dolphin.
+     * @return 
+     */
+    public int id() {
+        return this.id;
     }
     
     /**
