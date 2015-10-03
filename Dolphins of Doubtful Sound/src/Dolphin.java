@@ -1,15 +1,11 @@
-/**
- * Contains a class to represent a dolphin, and methods to draw one on the 
- * canvas. 
- * 
- * @author Tushar
- */
-
 import java.awt.*;
-import java.util.*;         
-import java.net.*;
+import java.util.*;    
 import java.io.*;
 
+/**
+ * Class to represent a dolphin, and methods to draw one on the canvas. 
+ * @author <i> Tushar </i>
+ */
 public class Dolphin implements Comparable<Dolphin> {
     private static final double cX = 400.0, cY = 330.0;  // Coordinates of the canvas' center. 
     private static double currentAngle = 0;              // The first dolphin will be along theta = 0 degrees.
@@ -237,103 +233,7 @@ public class Dolphin implements Comparable<Dolphin> {
             }
         }
         out.close();
-    }
-    
-    /**
-     * Reads the labels for each dolphin and the edges from a file, and prints
-     * the entire graph to the canvas.
-     * 
-     * @param args  conventional argument
-     * @throws IOException  if URL is inaccessible.
-     */
-    public static void main(String[] args) throws IOException {
-        Dolphin.setRadius(270);
-        Dolphin.setDelta(42);
-        Font f = new Font("SansSerif", Font.PLAIN, 13);
-        StdDraw.setCanvasSize(800, 670);
-        StdDraw.setXscale(0, 800);
-        StdDraw.setYscale(0, 670);
-        StdDraw.setFont(f);
-        URL url = new URL("http://networkdata.ics.uci.edu/data/dolphins/dolphins.gml");
-        Scanner read = new Scanner(url.openStream());
-        Dolphin[] dolphins = new Dolphin[62];
-        String line;
-        String[] temp;
-        int dolph1, dolph2;                        // Used while reading edges.
-        for (int i = 0; i < 7; i++) {                // Get to the first label.
-            read.nextLine();                            // Due to input format.
-        }                                // We're now going to read the labels.
-        for (int i = 0; i < 62; i++) {
-            line = read.nextLine();
-            temp = line.split("\"");                 // The label is in quotes.
-            temp = temp[1].split("\"");
-            line = temp[0];
-            dolphins[i] = new Dolphin(i, line);
-            read.nextLine();                          // Get to the next label.
-            if (i != 61) {                              // Due to input format.  
-                read.nextLine(); read.nextLine();
-                read.nextLine();
-            }
-        }                                 // We're now going to read the edges.
-        while(read.hasNext()) {                       
-            read.nextLine(); 
-            if (read.hasNext()) read.nextLine();        // Due to input format.
-            else break;
-            line = read.nextLine();
-            line = line.split("source ")[1];
-            dolph1 = Integer.parseInt(line);
-            line = read.nextLine();
-            line = line.split("target ")[1];
-            dolph2 = Integer.parseInt(line);
-            dolphins[dolph1].addToNetwork(dolphins[dolph2]);
-            read.nextLine();   // Get to the next edge.
-        }
-        StdDraw.setPenColor(StdDraw.BLACK);
-        for (int i = 0; i < 62; i++) {
-            dolphins[i].drawNode(0.01, 0.01);
-        }
-        Color edgeColor = new Color(51, 102, 255);
-        StdDraw.setPenColor(edgeColor);
-        for (int i = 0; i < 62; i++) {
-            dolphins[i].drawNetwork(0.0020);
-        }
-        StdDraw.setPenColor(StdDraw.BLACK);
-        for (int i = 0; i < 62; i++) {
-            dolphins[i].drawNodeOnly(0.01, StdDraw.BLACK);
-        }
-        //writeStatsToFile(dolphins, "Output.txt");
-        //StdDraw.setPenRadius(0.002);
-        //StdDraw.rectangle(60, 652, 50, 10);
-        double tolerance = 65;
-        while (true) {
-            // the location (x, y) of the mouse
-            double x = StdDraw.mouseX();
-            double y = StdDraw.mouseY();
-            for (int i = 0; i < 62; i++) {
-                if (distSquared(dolphins[i].x(), dolphins[i].y(), x, y) <= tolerance) {
-                    dolphins[i].drawNetworkEdges(0.0020, StdDraw.RED);
-                    dolphins[i].drawNodeOnly(0.01, StdDraw.RED);
-                    dolphins[i].drawNetworkNodes(0.01, StdDraw.RED);
-                    //StdDraw.setPenColor(StdDraw.BLACK);
-                    //String current = "Connections: " + dolphins[i].sizeOfNetwork();
-                    //StdDraw.text(60, 650, current);
-                    while (distSquared(dolphins[i].x(), dolphins[i].y(), x, y) <= tolerance) {
-                        x = StdDraw.mouseX();
-                        y = StdDraw.mouseY();
-                    }
-                    //StdDraw.setPenColor(StdDraw.WHITE);
-                    //StdDraw.filledRectangle(60, 650, 49, 7);
-                    dolphins[i].drawNetworkEdges(0.0020, StdDraw.WHITE);  // Doing this
-                    dolphins[i].drawNetworkEdges(0.0020, StdDraw.WHITE);  // twice will
-                    dolphins[i].drawNetworkEdges(0.0020, edgeColor);      // delay the 
-                    dolphins[i].drawNetworkEdges(0.0020, edgeColor);      // purple shade.
-                    dolphins[i].drawNodeOnly(0.01, StdDraw.BLACK);
-                    dolphins[i].drawNetworkNodes(0.01, StdDraw.BLACK);
-                }
-            }
-        }
-    }
-    
+    }    
     /**
      * Just a small method to return the squaredDistance b/w two points.
      * 
