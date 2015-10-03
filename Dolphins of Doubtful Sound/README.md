@@ -15,7 +15,7 @@ Contains Java code to make an interactive network-based visualization of a commu
 
 ![CurrentPlot](https://github.com/TusharRakheja/DataVisualization/blob/master/Dolphins%20of%20Doubtful%20Sound/Sample%20Plot.png)
 
-[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp Input order                                                                  						Partially bundled edges]
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  Input order &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                                                                   						Partially bundled edges]
 
 **To do**
 
