@@ -16,7 +16,7 @@ public class Dolphin implements Comparable<Dolphin> {
     private int id;                                      // Signifies array index (unsorted). Also used in edge connection.
     private String label;                                // The dolphin's name.
     private double x, y, theta;                          // Cartesian coordinates.
-    private ArrayList<Integer> network;                  // The dolphins that this one communicated with (by ID).
+    private LinkedList<Integer> network;                  // The dolphins that this one communicated with (by ID).
     
     /**r
      * This method is used to set the radius for the visualization.
@@ -46,7 +46,7 @@ public class Dolphin implements Comparable<Dolphin> {
     public Dolphin(int id, String label) {
         this.id = id;
         this.label = label;
-        network = new ArrayList<>();
+        network = new LinkedList<>();
     }
     
     /**
