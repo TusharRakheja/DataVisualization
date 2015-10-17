@@ -1,3 +1,7 @@
+/*
+ * Implementations for methods in the Polynomial class.
+ */
+
 #include "Polynomial.h"
 #include <cmath>
 #include <iomanip>
@@ -26,6 +30,7 @@ Polynomial::Polynomial(string filename) {
 	delete file;								    // Not deleting the file, just the fstream object.
 	cout << *this << endl;
 	Gauss(); Jordan();       					            // Call the functions to perform Gauss-Jordan elimination to get a_i.
+	Plot();
 }
 
 void Polynomial::Gauss() {
@@ -64,7 +69,32 @@ ostream& operator<<(ostream &out, const Polynomial &p) {
 	return out;
 }
 
-int main() {
+void Polynomial::Plot() {
+	bool quit = false;
+	SDL_Event event;
+	SDL_Window *w = nullptr;
+	SDL_Renderer *r = nullptr;
+	SDL_Init(SDL_INIT_VIDEO);
+	SDL_SetHint(SDL_HINT_RENDER_DRIVER, "opengl");
+	w = SDL_CreateWindow("Polynomial", 80, 31, 1200, 685, 0);			// Half screen plot.
+	r = SDL_CreateRenderer(w, -1, SDL_RENDERER_ACCELERATED);
+	SDL_SetRenderDrawColor(r, 255, 255, 255, SDL_ALPHA_OPAQUE);        // Clear screen to white color.
+	SDL_RenderClear(r);
+	SDL_SetRenderDrawColor(r, 0, 0, 0, 50);
+	SDL_RenderDrawLine(r, 0, 685-30, 1190, 685-30);
+	SDL_RenderDrawLine(r, 30, 0, 30, 685);
+	SDL_RenderPresent(r);
+	float increment = 0.001f;											// The curve's resolution.
+	while (!quit) {
+		while (SDL_PollEvent(&event)) {								
+			if (event.type == SDL_QUIT) {
+				quit = true;
+			}
+		}
+	}
+}
+
+int main(int argc, char **argv) {
 	Polynomial p("Data.txt");
 	return 0;
 }
