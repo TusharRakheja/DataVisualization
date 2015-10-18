@@ -5,8 +5,13 @@
 #include "Polynomial.h"
 #include <cmath>
 #include <iomanip>
+#include <SDL.h>
 
 #define withZeros {}								    // Just for fun, hehe.
+#define SC_HEIGHT 685
+#define SC_WIDTH 1200
+#define SC_XOFFSET 80
+#define SC_YOFFSET 31
 
 Polynomial::Polynomial(string filename) {
 	fstream *file = new fstream(filename);
@@ -18,9 +23,19 @@ Polynomial::Polynomial(string filename) {
 	file->seekp(0L, ios::beg);						    // Go to the beginning of the file. We can start reading data again now.
 	matrix = new Matrix[n];							    // Make an array of rows.
 	for (int i = 0; i < n; i++) {
-		matrix[i].column = new float[n + 1] withZeros;			    // Set up a row containing all zeros.
+		matrix[i].column = new float[n + 1] withZeros;	// Set up a row containing all zeros.
 		float x_i, y_i;
 		*file >> x_i >> y_i;						    // Read one data point.
+		if (i == 0) {
+			hx = lx = x_i;
+			hy = ly = y_i;
+		}
+		else {
+			if (x_i > hx) hx = x_i; 
+			if (x_i < lx) lx = x_i;
+			if (y_i > hy) hy = y_i;
+			if (y_i < ly) ly = y_i;
+		}
 		for (int j = 0; j < n; j++) {
 			matrix[i][j] = pow(x_i, j);				    // \sum{(a_j) * ((x_i) ^ j)}, from j = 0 to j = n-1.
 		}
@@ -28,7 +43,6 @@ Polynomial::Polynomial(string filename) {
 	}
 	file->close();
 	delete file;								    // Not deleting the file, just the fstream object.
-	cout << *this << endl;
 	Gauss(); Jordan();       					            // Call the functions to perform Gauss-Jordan elimination to get a_i.
 	Plot();
 }
@@ -56,7 +70,6 @@ void Polynomial::Jordan() {
 			matrix[row][n] -= multiplier;
 		}
 	}
-	cout << *this;
 }
 
 ostream& operator<<(ostream &out, const Polynomial &p) {
@@ -76,15 +89,35 @@ void Polynomial::Plot() {
 	SDL_Renderer *r = nullptr;
 	SDL_Init(SDL_INIT_VIDEO);
 	SDL_SetHint(SDL_HINT_RENDER_DRIVER, "opengl");
-	w = SDL_CreateWindow("Polynomial", 80, 31, 1200, 685, 0);			// Half screen plot.
+	w = SDL_CreateWindow("Polynomial", SC_XOFFSET, SC_YOFFSET, SC_WIDTH, SC_HEIGHT, 0);	
 	r = SDL_CreateRenderer(w, -1, SDL_RENDERER_ACCELERATED);
-	SDL_SetRenderDrawColor(r, 255, 255, 255, SDL_ALPHA_OPAQUE);        // Clear screen to white color.
-	SDL_RenderClear(r);
+	SDL_SetRenderDrawColor(r, 255, 255, 255, SDL_ALPHA_OPAQUE);        // Make the screen
+	SDL_RenderClear(r);												   // white.
 	SDL_SetRenderDrawColor(r, 0, 0, 0, 50);
-	SDL_RenderDrawLine(r, 0, 685-30, 1190, 685-30);
-	SDL_RenderDrawLine(r, 30, 0, 30, 685);
+	SDL_RenderDrawLine(r, 0, SC_HEIGHT-30, SC_WIDTH, SC_HEIGHT-30);	   // X axis.
+	SDL_RenderDrawLine(r, 30, 0, 30, SC_HEIGHT);					   // Y-axis.
+	SDL_SetRenderDrawColor(r, 150, 150, 150, SDL_ALPHA_OPAQUE);
+	double yScale = (SC_HEIGHT - 30)/(hy - ly);
+	double xScale = (SC_WIDTH - 30)/(hx - lx);
+	cout << "X Scale: " << xScale << endl;
+	cout << "Y Scale: " << yScale << endl;
+	for (double i = 30 + 30; i < SC_WIDTH; i += 30) {				   // Set up the vertical grid-lines.
+		SDL_RenderDrawLine(r, i, 0, i, SC_HEIGHT);
+	}
+	for (double j = 30 + 30; j < SC_HEIGHT; j += 30) {				   // Set up the horizontal grid-lines.
+		SDL_RenderDrawLine(r, 0, SC_HEIGHT - j, SC_WIDTH, SC_HEIGHT - j);
+	}
+	SDL_SetRenderDrawColor(r, 255, 0, 0, SDL_ALPHA_OPAQUE);			   // The curve will be red in color.
+	double delX = ((double)(SC_WIDTH - 30))/1000.0;					   // The difference between two consecutive xs. 	
+	SDL_Rect point;
+	for (double x = lx; x <= hx; x+=0.001) {
+		point.x = 30 + x*xScale;
+		point.y = this->of(x)*yScale;
+		point.w = 2;
+		point.h = 2;
+		SDL_RenderFillRect(r, &point);									// Color point.
+	}
 	SDL_RenderPresent(r);
-	float increment = 0.001f;											// The curve's resolution.
 	while (!quit) {
 		while (SDL_PollEvent(&event)) {								
 			if (event.type == SDL_QUIT) {
@@ -92,6 +125,9 @@ void Polynomial::Plot() {
 			}
 		}
 	}
+	SDL_DestroyRenderer(r);					// Clean up allocated SDL resources.
+	SDL_DestroyWindow(w);
+	SDL_Quit();
 }
 
 int main(int argc, char **argv) {
