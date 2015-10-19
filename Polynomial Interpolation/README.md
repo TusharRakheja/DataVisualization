@@ -1,3 +1,26 @@
 # Polynomial Interpolation.
 
-For given _n_ data points on a 2-D plane, computes an _n_-dimensional polynomial fitting the data set.
+For given _n_ data points on a 2-D plane, the program computes an (_n_-_1)_-dimensional polynomial fitting the data set.
+
+For a set of points S = { (x<sub>_i_</sub>, y<sub>_i_</sub>) | i _in_ {1, ... , n} }: 
+
+* It assumes a polynomial **p**(x) = **a**<sub>_n-1_</sub>**x**<sup>_n-1_</sup> + **a**<sub>_n-2_</sub>**x**<sup>_n-2_</sup> + ... + **a**<sub>_1_</sub>**x** + **a**<sub>_0_</sub>.
+
+* Generates _n_ equations using **p**(x<sub>_i_</sub>) = y<sub>_i_</sub>, in _n_ variables (The coefficients {**a**<sub>_j_</sub>}).
+
+* Finally, it uses Gauss-Jordan elimination to determine the coefficients.
+
+* Then it plots the computed polynomial in an SDL window. 
+
+##### To do:
+
+* Label the gridlines with x and y-values. 
+
+* Handle mouse-events. 
+
+* An interface to enter data points in real time (needs a preset file for now).   
+
+## Dependencies
+
+Made in Visual Studio 2013, but should port quite easily. Compilation requires SDL2 to be set up.
+
