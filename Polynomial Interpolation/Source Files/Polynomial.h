@@ -31,7 +31,7 @@ public:
 		double y = 0;
 		double x_i = 1;
 		for (int i = 0; i < n; i++) {
-			y += matrix[i][i] * x_i;
+			y += matrix[i][n] * matrix[i][i] * x_i;
 			x_i *= x;
 		}
 		return y;
