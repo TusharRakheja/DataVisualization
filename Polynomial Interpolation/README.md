@@ -12,7 +12,7 @@ For a set of points S = { (x<sub>_i_</sub>, y<sub>_i_</sub>) | i _in_ {1, ... , 
 
 * Then it plots the computed polynomial in an SDL window. 
 
-##### Sample plot for S = {(0,1), (1,2), (2,1), (3,0), (4,1), (5,2), (6,1), (7,0), (8,1), (9,2), (10,1), (11,0)} [Shifted sine curve].
+**Sample plot** for S = {(0,1), (1,2), (2,1), (3,0), (4,1), (5,2), (6,1), (7,0), (8,1), (9,2), (10,1), (11,0)} [Shifted sine curve].
 
 ![Sample Plot](https://github.com/TusharRakheja/DataVisualization/blob/master/Polynomial%20Interpolation/Images/Sample%20Plot.png)
 
