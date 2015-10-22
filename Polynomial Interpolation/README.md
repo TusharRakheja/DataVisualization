@@ -16,7 +16,7 @@ For a set of points S = { (x<sub>_i_</sub>, y<sub>_i_</sub>) | i _in_ {1, ... , 
 
 <img src="https://github.com/TusharRakheja/DataVisualization/blob/master/Polynomial%20Interpolation/Images/Sample%20Plot.png" width="650" align="middle">
 
-**Interesting:** For _n_ points on the sine curve, the polynomial computed should be a Taylor series of the curve upto _n-1_ degrees. 
+**Interesting:** _(Conjecture)_ For _n_ points in _n_ consecutive intervals of width &#928; on the sine curve, the polynomial computed should be a Taylor series of the curve upto _n-1_ degrees. 
 
 ##### To do:
 
