@@ -2,9 +2,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Arrays;
 import java.util.Scanner;
-
+import java.util.Arrays;
 /**
  * Class to make the ring-shaped graphs of the data. 
  * @author <i> Tushar </i>
@@ -75,8 +74,8 @@ public class Ring {
             dolphins[i].drawNodeOnly(0.01, StdDraw.BLACK);
         }
         //writeStatsToFile(dolphins, "Output.txt");
-        //StdDraw.setPenRadius(0.002);
-        //StdDraw.rectangle(60, 652, 50, 10);
+        StdDraw.setPenRadius(0.002);
+        StdDraw.rectangle(60, 652, 50, 10);
         double tolerance = 65;
         while (true) {
             // the location (x, y) of the mouse
@@ -87,15 +86,15 @@ public class Ring {
                     dolphins[i].drawNetworkEdges(0.0020, StdDraw.RED, dolphins);
                     dolphins[i].drawNodeOnly(0.01, StdDraw.RED);
                     dolphins[i].drawNetworkNodes(0.01, StdDraw.RED, dolphins);
-                    //StdDraw.setPenColor(StdDraw.BLACK);
-                    //String current = "Connections: " + dolphins[i].sizeOfNetwork();
-                    //StdDraw.text(60, 650, current);
+                    StdDraw.setPenColor(StdDraw.BLACK);
+                    String current = "Connections: " + dolphins[i].sizeOfNetwork();
+                    StdDraw.text(60, 650, current);
                     while (Dolphin.distSquared(dolphins[i].x(), dolphins[i].y(), x, y) <= tolerance) {
                         x = StdDraw.mouseX();
                         y = StdDraw.mouseY();
                     }
-                    //StdDraw.setPenColor(StdDraw.WHITE);
-                    //StdDraw.filledRectangle(60, 650, 49, 7);
+                    StdDraw.setPenColor(StdDraw.WHITE);
+                    StdDraw.filledRectangle(60, 650, 49, 7);
                     dolphins[i].drawNetworkEdges(0.0020, StdDraw.WHITE, dolphins);  // Doing this
                     dolphins[i].drawNetworkEdges(0.0020, StdDraw.WHITE, dolphins);  // twice will
                     dolphins[i].drawNetworkEdges(0.0020, edgeColor, dolphins);      // delay the 
