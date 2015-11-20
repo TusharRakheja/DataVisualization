@@ -16,9 +16,9 @@ import java.net.MalformedURLException;
  */
 public class ForceDirected {
     public Dolphin[] dolphins = new Dolphin[62];         // The array to contain all the dolphins.
-    private double K = 1;                                    // The spring constant.
-    private double G = 1;                                    // The gravitational constant. 
-    private double eqL = 100;                                  // Equilibrium length.
+    private double K = 0.0001;                                    // The spring constant.
+    private double G = 1;                            // The gravitational constant. 
+    private double eqL = 500;                                 // Equilibrium length.
     /**
      * Returns the total potential potential energy of the system in its current state.
      * @param set The array of dolphins.
@@ -64,10 +64,8 @@ public class ForceDirected {
     public double gPE(Dolphin d1, Dolphin d2) {
         return G*d1.mass()*d2.mass()/Math.sqrt(Dolphin.distSquared(d1, d2));
     }
-    
     /**
      * Adjust the coordinates by 1 time-step.
-     * @param set The array of dolphins.
      * @param timeStep The time-step magnitude.
      * Will probably kill my computer.
      */
@@ -76,21 +74,21 @@ public class ForceDirected {
             d.accel(new Vector2D(0, 0));
             for (Integer i : d) {
                 double eLen = Dolphin.dist(d, dolphins[i]);
-                d.accel(d.accel().plus( 
+                /*d.accel(d.accel().plus( 
                     (d.position().minus(dolphins[i].position())).unit()).times(K*(eqL - eLen)/d.mass())
-                        ); // Horrible.
-            }
+                        ); // Horrible.*/
+                d.accel().add(d.position().minus(dolphins[i].position()).unit().times(K*(eqL - eLen)/d.mass()));
+            }/*
             for (Dolphin d2 : dolphins) {
                 if (d2 != d) {    
-                    double eLenSq = Dolphin.distSquared(d, d2);
-                    Vector2D newVec = d.accel().plus( 
-                                          (d.position().minus(d2.position()).unit()).times(G*d.mass()*d2.mass()/eLenSq) 
-                                       );
+                    double eLenSQ = Dolphin.distSquared(d, d2);
+                    System.out.println(eLenSQ);
+                    Vector2D newVec = new Vector2D((d.position().minus(d2.position())).unit()).times((G*d.mass()*d2.mass())/eLenSQ);
                     newVec.reverse();
-                    d.accel(newVec);
+                    d.accel(d.acc;
                 }
-            }
-            System.out.println(d.accel().x() + " " + d.accel().y());
+            }*/
+            //System.out.println(d.accel().x() + " " + d.accel().y());
         }
         for (Dolphin d : dolphins) d.adjust(timeStep);
     }
@@ -133,11 +131,12 @@ public class ForceDirected {
             dolphins[dolph1].addToNetwork(dolphins[dolph2]);
             read.nextLine();                            // Get to the next edge.
         }
-        Dolphin.setAngle(dolphins);                     // Initially set the nodes around a ring.
+        Dolphin.setRandom(dolphins);                     // Initially set the nodes around a ring.
     }
     /**
      * The main method.
      * @param args Conventional.
+     * @throws java.io.IOException
      */
     public static void main(String[] args) throws IOException {   
         ForceDirected fd = new ForceDirected();
@@ -150,14 +149,13 @@ public class ForceDirected {
         StdDraw.setFont(f);
         fd.generateGraph();
         Scanner s = new Scanner(System.in);
-        String str = "";
         while (true) {
-            if (StdDraw.mousePressed()) {
-                StdDraw.clear();
+            if (StdDraw.mousePressed()) break; {
+                //StdDraw.clear();
                 for (int i = 0; i < 62; i++) {
                     fd.dolphins[i].drawNode2(0.01, 0.01);
                 }
-                fd.adjust(0.001);
+                fd.adjust(1);
             }
         }
     }
