@@ -45,7 +45,7 @@ public class Dolphin implements Comparable<Dolphin>, Iterable<Integer> {
         this.id = id;
         this.label = label;
         network = new LinkedList<>();
-        mass = 0;
+        mass = 1;
         velocity = new Vector2D(0, 0);
         accel = new Vector2D(0, 0);
     }
@@ -69,6 +69,16 @@ public class Dolphin implements Comparable<Dolphin>, Iterable<Integer> {
         y = cY + radius * Math.sin(theta * (Math.PI/180.0));
         position = new Vector2D(x, y);
     }
+    private void setRandomCoordinates() {
+        double x = Math.random() * 801;
+        double y = Math.random() * 671;
+        this.position(new Vector2D(x, y));
+    }
+    public static void setRandom(Dolphin[] dolphins) {
+        for (Dolphin d : dolphins) {
+            d.setRandomCoordinates();
+        }
+    }
     /**
      * The compareTo() method to compare this to another dolphin 'that'
      * Compares based on networkSize().
@@ -90,14 +100,14 @@ public class Dolphin implements Comparable<Dolphin>, Iterable<Integer> {
      * @return The x-coordinate of this dolphin.
      */
     public double x() {
-        return x;
+        return position.x();
     }
     /**
      * Returns the y-coordinate of this dolphin.
      * @return The y-coordinate of this dolphin.
      */
     public double y() {
-        return y;
+        return position.y();
     }
     /**
      * Returns the mass (network size) of the dolphin.
@@ -191,8 +201,8 @@ public class Dolphin implements Comparable<Dolphin>, Iterable<Integer> {
         if (!network.contains(that.id())) { 
             network.add(that.id());
             that.network.add(this.id()); 
-            mass++;
-            that.mass++;
+            mass *= 1;
+            that.mass *= 1;
         }
     }
     /**
