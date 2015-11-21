@@ -30,7 +30,9 @@ public class Node// implements Comparable<Node>, Iterable<Node>
         this.label = label;
     }
 
-    public void DrawMe()
+    public double getPE();
+
+    public void drawMe()
     {
         StdDraw.setPenColor(StdDraw.BLACK);
         double node_radius = radius * (network.size()/64);
@@ -43,7 +45,7 @@ public class Node// implements Comparable<Node>, Iterable<Node>
     * FIXME : This gets called twice per pair.
     */
 
-    public void DrawEdges()
+    public void drawEdges()
     {
         for( Node friend : network)
         {
