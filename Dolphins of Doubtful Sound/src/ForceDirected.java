@@ -5,7 +5,7 @@ import java.util.Scanner;
 import java.net.MalformedURLException;
 /**
  * Class to make a force-directed graph of the data.
- * Ideas: <ul> 
+ * Ideas: <ul>
  *        <li> Every edge acts like a spring.</li>
  *        <li> Every node has a mass which is given by the number of edges.</li>
  *        <li> Every node feels gravity from other needs. </li>
@@ -17,7 +17,7 @@ import java.net.MalformedURLException;
 public class ForceDirected {
     public Dolphin[] dolphins = new Dolphin[62];         // The array to contain all the dolphins.
     private double K = 0.0001;                                    // The spring constant.
-    private double G = 1;                            // The gravitational constant. 
+    private double G = 1;                            // The gravitational constant.
     private double eqL = 500;                                 // Equilibrium length.
     /**
      * Returns the total potential potential energy of the system in its current state.
@@ -25,7 +25,7 @@ public class ForceDirected {
      * @return The potential energy of the system.
      */
     public double PE(Dolphin[] set) {
-       return ePE(set) + gPE(set); 
+       return ePE(set) + gPE(set);
     }
     /**
      * Calculates the elastic potential energy of the system in its current state.
@@ -44,11 +44,11 @@ public class ForceDirected {
     /**
      * Calculates the gravitational potential energy of the system in its current state.
      * @param set The array of dolphins.
-     * @return 
+     * @return
      */
     public  double gPE(Dolphin[] set) {
         double energy = 0;
-        for (int i = 0; i < set.length - 1; i++) {  
+        for (int i = 0; i < set.length - 1; i++) {
             for (int j = i + 1; j < set.length; j++) {
                 energy += gPE(set[i], set[j]);
             }
@@ -74,13 +74,13 @@ public class ForceDirected {
             d.accel(new Vector2D(0, 0));
             for (Integer i : d) {
                 double eLen = Dolphin.dist(d, dolphins[i]);
-                /*d.accel(d.accel().plus( 
+                /*d.accel(d.accel().plus(
                     (d.position().minus(dolphins[i].position())).unit()).times(K*(eqL - eLen)/d.mass())
                         ); // Horrible.*/
                 d.accel().add(d.position().minus(dolphins[i].position()).unit().times(K*(eqL - eLen)/d.mass()));
             }/*
             for (Dolphin d2 : dolphins) {
-                if (d2 != d) {    
+                if (d2 != d) {
                     double eLenSQ = Dolphin.distSquared(d, d2);
                     System.out.println(eLenSQ);
                     Vector2D newVec = new Vector2D((d.position().minus(d2.position())).unit()).times((G*d.mass()*d2.mass())/eLenSQ);
@@ -113,13 +113,13 @@ public class ForceDirected {
             line = temp[0];
             dolphins[i] = new Dolphin(i, line);
             read.nextLine();                            // Get to the next label.
-            if (i != 61) {                              // Due to input format.  
+            if (i != 61) {                              // Due to input format.
                 read.nextLine(); read.nextLine();
                 read.nextLine();
             }
         }                                               // We're now going to read the edges.
-        while(read.hasNext()) {                       
-            read.nextLine(); 
+        while(read.hasNext()) {
+            read.nextLine();
             if (read.hasNext()) read.nextLine();        // Due to input format.
             else break;
             line = read.nextLine();
@@ -133,12 +133,13 @@ public class ForceDirected {
         }
         Dolphin.setRandom(dolphins);                     // Initially set the nodes around a ring.
     }
+
     /**
      * The main method.
      * @param args Conventional.
      * @throws java.io.IOException
      */
-    public static void main(String[] args) throws IOException {   
+    public static void main(String[] args) throws IOException {
         ForceDirected fd = new ForceDirected();
         Dolphin.setRadius(270);
         Dolphin.setDelta(42);
