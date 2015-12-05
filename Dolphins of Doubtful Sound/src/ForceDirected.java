@@ -17,42 +17,44 @@ import java.net.MalformedURLException;
 public class ForceDirected {
     public Dolphin[] dolphins = new Dolphin[62];         // The array to contain all the dolphins.
     private double K = 0.0001;                                    // The spring constant.
-    private double G = 1;                            // The gravitational constant. 
+    private double G = 4;                                // The gravitational constant. 
     private double eqL = 500;                                 // Equilibrium length.
     /**
      * Returns the total potential potential energy of the system in its current state.
-     * @param set The array of dolphins.
      * @return The potential energy of the system.
      */
-    public double PE(Dolphin[] set) {
-       return ePE(set) + gPE(set); 
+    public double PE() {
+       return ePE() + gPE(); 
     }
     /**
      * Calculates the elastic potential energy of the system in its current state.
-     * @param set The array of dolphins.
      * @return The elastic potential energy of the system in its current state.
      */
-    public double ePE(Dolphin[] set) {
+    public double ePE() {
         double energy = 0;
-        for (Dolphin d : set) {
+        for (Dolphin d : dolphins) {
+            //System.out.println("Here0");
             for (Integer i : d) {
-                energy += 0.5*K*(eqL - Dolphin.dist(d, set[i]))*(eqL - Dolphin.dist(d, set[i]));
+                //System.out.println("Here0.1");
+                energy += 0.5*K*(eqL - Dolphin.dist(d, dolphins[i]))*(eqL - Dolphin.dist(d, dolphins[i]));
             }
         }
         return energy;
     }
     /**
      * Calculates the gravitational potential energy of the system in its current state.
-     * @param set The array of dolphins.
      * @return 
      */
-    public  double gPE(Dolphin[] set) {
+    public  double gPE() {
         double energy = 0;
-        for (int i = 0; i < set.length - 1; i++) {  
-            for (int j = i + 1; j < set.length; j++) {
-                energy += gPE(set[i], set[j]);
+        for (int i = 0; i < dolphins.length - 1; i++) { 
+            //System.out.println("Here1"); 
+            for (int j = i + 1; j < dolphins.length; j++) {
+                //System.out.println("Here2");
+                energy += gPE(dolphins[i], dolphins[j]);
             }
         }
+        //System.out.println("Here3");
         return energy;
     }
     /**
@@ -74,20 +76,16 @@ public class ForceDirected {
             d.accel(new Vector2D(0, 0));
             for (Integer i : d) {
                 double eLen = Dolphin.dist(d, dolphins[i]);
-                /*d.accel(d.accel().plus( 
-                    (d.position().minus(dolphins[i].position())).unit()).times(K*(eqL - eLen)/d.mass())
-                        ); // Horrible.*/
                 d.accel().add(d.position().minus(dolphins[i].position()).unit().times(K*(eqL - eLen)/d.mass()));
-            }/*
+            }
             for (Dolphin d2 : dolphins) {
                 if (d2 != d) {    
                     double eLenSQ = Dolphin.distSquared(d, d2);
-                    System.out.println(eLenSQ);
                     Vector2D newVec = new Vector2D((d.position().minus(d2.position())).unit()).times((G*d.mass()*d2.mass())/eLenSQ);
                     newVec.reverse();
-                    d.accel(d.acc;
+                    d.accel().add(newVec);
                 }
-            }*/
+            }
             //System.out.println(d.accel().x() + " " + d.accel().y());
         }
         for (Dolphin d : dolphins) d.adjust(timeStep);
@@ -149,13 +147,13 @@ public class ForceDirected {
         StdDraw.setFont(f);
         fd.generateGraph();
         Scanner s = new Scanner(System.in);
-        while (true) {
+        while (fd.PE() >= 500) {
             if (StdDraw.mousePressed()) break; {
-                //StdDraw.clear();
+                StdDraw.clear();
                 for (int i = 0; i < 62; i++) {
                     fd.dolphins[i].drawNode2(0.01, 0.01);
                 }
-                fd.adjust(1);
+                fd.adjust(0.01);
             }
         }
     }
