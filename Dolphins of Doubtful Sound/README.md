@@ -19,19 +19,34 @@ Contains Java code to make an interactive network-based visualization of a commu
 
 **To do**
 
-* Edge-bundling in this graph. Fix purple-shade bug. Make it more efficient.
+* Edge-bundling in this graph. Fix purple-shade bug. Make it more efficient. 
 
 * A new force-directed graph.
 
 * Maybe an entirely different visualization technique.
 
-**Progress with ForceDirected graph**
+**Progress and problems with ForceDirected graph**
 
-I'm trying to use a straightforward explicit Euler implementation for gravity and centripetal force. According to the initial configuration, the two bodies should follow
-a circular trajectory, hence the graphs for all three forces should have been uniform. However, there are weird spikes in gravity, and even weirder ones in centripetal
-force. Here's a plot (Note that the black curve is hidden behind the blue curve, which shows that the centripetal forces on both bodies are the same. Some good news).
+For the experiment described below, the distance between the two dolphins is set = 150 m. So the radius of rotation (expected radius anyway) = 75 m.
+The *mass* of both the dolphin nodes is 3 kg.
+
+I'm trying to use a straightforward explicit Euler implementation for gravity. Centripetal force on both nodes is also measured. According to the initial configuration, 
+the two bodies should follow a circular trajectory, hence the graphs for all three forces should have been uniform. However, there are weird spikes in gravity, and even 
+weirder ones in centripetal force. As a result, the two bodies follow elliptical orbits, and keep drifting apart. To see it, uncomment line 15 in TestGravity.java, and comment out line 14.
+
+`//simulate(dolphin) --> simulate(dolphin)` and `plotForces(dolphin) --> //plotForces(dolphin)`
+
+Here's a plot (Note that the black curve is hidden behind the blue curve, which shows that the centripetal forces on both bodies are the same. Some good news).
 
 ![CentripetalvsGravity](https://github.com/TusharRakheja/DataVisualization/blob/master/Dolphins%20of%20Doubtful%20Sound/Images/CentripetalvsGravity.png)
+
+**Empirical Fix**: Apparently, if we change the velocity to 0.1725 m/s each instead of 0.1 m/s each, then what happens is exactly what we want, except that the 
+centripetal force's magnitude (initially) is 1.19 mN, whereas the gravitational force comes out to be 0.4 mN. Eventually, the gravity remains about 0.4 mN,
+but the centripetal force settles down to about 0.6 mN. I've no idea what's going on.
+
+Any suggestions? The plot for that configuration, as well as the corresponding trajectory, is here (don't need the full plot anyway).
+
+![CentripetalvsGravity_Better](https://github.com/TusharRakheja/DataVisualization/blob/master/Dolphins%20of%20Doubtful%20Sound/Images/CentripetalvsGravity_Better.png)
 
 **Dependencies**
 
