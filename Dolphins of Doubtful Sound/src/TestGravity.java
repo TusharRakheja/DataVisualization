@@ -7,8 +7,8 @@ public class TestGravity {
         dolphin[1] = new Dolphin(1, "");
         dolphin[0].position(new Vector2D(400 + 75, 375));
         dolphin[1].position(new Vector2D(400 - 75, 375));
-        dolphin[0].velocity(new Vector2D(0, -0.1725));
-        dolphin[1].velocity(new Vector2D(0, 0.1725));
+        dolphin[0].velocity(new Vector2D(0, -0.1));
+        dolphin[1].velocity(new Vector2D(0, 0.1));
         dolphin[0].addToNetwork(dolphin[1]); 
         info(dolphin);
         plotForces(dolphin);
@@ -77,16 +77,20 @@ public class TestGravity {
         System.out.println("Max Centri2: " + centriMax2+"\tMin Centri2: " + centriMin2);
     }
     public static void plotForces(Dolphin[] dolphin) {
-        int yUp = 670, xUp = 800;
-        double timeStep = 1.0;
-        int xOffset = 60, yOffset = 60;
-        double st = 0, t = 0, et = 8000;        
-        double minForce = 0.0;
-        double maxForce = 0.025;
-        int fontSize = 9;
-        int legendYOffset = 20;
-        int legendXOffset = 50;
-        StdDraw.setCanvasSize(xUp, yUp + 10);
+        /**
+         * Display and other constants.
+         */
+        final int yUp = 680, xUp = 800;              
+        final int xOffset = 60, yOffset = 60;         
+        final int fontSize = 9;
+        final int legendYOffset = 20;
+        final int legendXOffset = 50;
+        final double st = 0, et = 8000;        
+        final double minForce = 0.0;
+        final double maxForce = 0.025;
+        final double timeStep = 1.0;               
+                
+        StdDraw.setCanvasSize(xUp, yUp);
         StdDraw.setXscale(0, xUp);
         StdDraw.setYscale(0, yUp);
         StdDraw.line(xOffset, 0, xOffset, yUp);               // Y axis.
@@ -116,6 +120,7 @@ public class TestGravity {
         StdDraw.text(xUp - legendXOffset, yUp - legendYOffset, "Gravity");
         StdDraw.text(xUp - legendXOffset, yUp - 2*legendYOffset, "Centripetal 1");
         StdDraw.text(xUp - legendXOffset, yUp - 3*legendYOffset, "Centripetal 2");
+        double t = st;
         while (t <= et) {
             if (StdDraw.mousePressed()) {
                 break;
