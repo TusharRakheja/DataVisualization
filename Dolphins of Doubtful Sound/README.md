@@ -54,9 +54,9 @@ You will need StdDraw.java from [here](http://introcs.cs.princeton.edu/java/stdl
 
 **Additional**
 
-* Adding a text box for network size of current node - Uncomment lines 305-306, 317-319, and 324-325 in Dolphin.java
+* Adding a text box for network size of current node - Uncomment lines 78-79, 91-92, and 94-95 in Ring.java
 
-* Writing Network Size vs Frequency(Network Size) data to a file - Uncomment line 304 in Dolphin.java
+* Writing Network Size vs Frequency(Network Size) data to a file - Uncomment line 77 in Ring.java
 
 * Plotting the aforementioned data in R - PlotDistribution.R in src.
 
