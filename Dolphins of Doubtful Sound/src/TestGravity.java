@@ -7,11 +7,11 @@ public class TestGravity {
         dolphin[1] = new Dolphin(1, "");
         dolphin[0].position(new Vector2D(400 + 75, 375));
         dolphin[1].position(new Vector2D(400 - 75, 375));
-        dolphin[0].velocity(new Vector2D(0, -0.1));
-        dolphin[1].velocity(new Vector2D(0, 0.1));
+        dolphin[0].velocity(new Vector2D(0, -0.1725));
+        dolphin[1].velocity(new Vector2D(0, 0.1725));
         dolphin[0].addToNetwork(dolphin[1]); 
         info(dolphin);
-        graph(dolphin);
+        plotForces(dolphin);
         //simulate(dolphin);
     }
     public static void info(Dolphin[] dolphin) {
@@ -20,9 +20,9 @@ public class TestGravity {
         System.out.print("4R^2: " + Dolphin.distSquared(dolphin[0], dolphin[1]));
         System.out.print("\t=> R^2: " + Dolphin.distSquared(dolphin[0], dolphin[1])/4);
         System.out.println("\t=> R: " + Dolphin.dist(dolphin[0], dolphin[1])/2);
-        System.out.println("M1V1^2/R: " + dolphin[0].mass()*dolphin[0].velocity().lensq()/(Dolphin.dist(dolphin[0], dolphin[1])/2));
-        System.out.println("M2V2^2/R: " + dolphin[1].mass()*dolphin[1].velocity().lensq()/(Dolphin.dist(dolphin[1], dolphin[0])/2));
-        System.out.println("M1M2/4R^2: " + dolphin[1].mass()*dolphin[1].mass()/Dolphin.distSquared(dolphin[0], dolphin[1]));
+        System.out.println("Centripetal 1 (M1V1^2/R): " + dolphin[0].mass()*dolphin[0].velocity().lensq()/(Dolphin.dist(dolphin[0], dolphin[1])/2));
+        System.out.println("Centripetal 2 (M2V2^2/R): " + dolphin[1].mass()*dolphin[1].velocity().lensq()/(Dolphin.dist(dolphin[1], dolphin[0])/2));
+        System.out.println("Gravity (M1M2/4R^2): " + dolphin[1].mass()*dolphin[1].mass()/Dolphin.distSquared(dolphin[0], dolphin[1]));
     }
     public static void simulate(Dolphin[] dolphin) {
         double centriMax1 = 0, centriMin1 = Double.MAX_VALUE;
@@ -76,7 +76,7 @@ public class TestGravity {
         System.out.println("Max Centri1: " + centriMax1+"\tMin Centri1: " + centriMin1);
         System.out.println("Max Centri2: " + centriMax2+"\tMin Centri2: " + centriMin2);
     }
-    public static void graph(Dolphin[] dolphin) {
+    public static void plotForces(Dolphin[] dolphin) {
         int yUp = 670, xUp = 800;
         double timeStep = 1.0;
         int xOffset = 60, yOffset = 60;
@@ -142,7 +142,8 @@ public class TestGravity {
             //dolphin[1].drawNode2(0.01, 0.01);
             //dolphin[0].drawNode2(0.01, 0.01);
         }
-    }
-    public static void graphQuantity(double timeShift, double q1, double q2) {
+        System.out.println("Gravity eventual: " + dolphin[0].mass()*dolphin[1].mass()/Dolphin.distSquared(dolphin[1], dolphin[0]));
+        System.out.print("Centripetal eventual: " + dolphin[0].mass()*dolphin[0].velocity().lensq()/Dolphin.dist(dolphin[1], dolphin[0]));
+        System.out.print(" | " + dolphin[1].mass()*dolphin[1].velocity().lensq()/Dolphin.dist(dolphin[1], dolphin[0]));
     }
 }
