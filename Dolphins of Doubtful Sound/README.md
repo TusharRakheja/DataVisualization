@@ -13,7 +13,7 @@ Contains Java code to make an interactive network-based visualization of a commu
 
 **Current ring plot**
 
-![CurrentPlot](https://github.com/TusharRakheja/DataVisualization/blob/master/Dolphins%20of%20Doubtful%20Sound/Sample%20Plot.png)
+![CurrentPlot](https://github.com/TusharRakheja/DataVisualization/blob/master/Dolphins%20of%20Doubtful%20Sound/Images/Sample%20Plot.png)
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    *Input order* &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;				*Partially bundled edges*
 
@@ -21,9 +21,17 @@ Contains Java code to make an interactive network-based visualization of a commu
 
 * Edge-bundling in this graph. Fix purple-shade bug. Make it more efficient.
 
-* A new force-directed graph. 
+* A new force-directed graph.
 
 * Maybe an entirely different visualization technique.
+
+**Progress with ForceDirected graph**
+
+I'm trying to use a straightforward explicit Euler implementation for gravity and centripetal force. According to the initial configuration, the two bodies should follow
+a circular trajectory, hence the graphs for all three forces should have been uniform. However, there are weird spikes in gravity, and even weirder ones in centripetal
+force. Here's a plot (Note that the black curve is hidden behind the blue curve, which shows that the centripetal forces on both bodies are the same. Some good news).
+
+![CentripetalvsGravity](https://github.com/TusharRakheja/DataVisualization/blob/master/Dolphins%20of%20Doubtful%20Sound/Images/CentripetalvsGravity.png)
 
 **Dependencies**
 
