@@ -3,13 +3,19 @@ import java.awt.Font;
 public class TestGravity {
     public static void main(String[] args) {
         Dolphin[] dolphin = new Dolphin[2];
-        dolphin[0] = new Dolphin(0, "");
-        dolphin[1] = new Dolphin(1, "");
+
+        dolphin[0] = new Dolphin(0, "Alpha");
+        dolphin[1] = new Dolphin(1, "Beta");
+
         dolphin[0].position(new Vector2D(400 + 75, 375));
         dolphin[1].position(new Vector2D(400 - 75, 375));
-        dolphin[0].velocity(new Vector2D(0, -0.1));
-        dolphin[1].velocity(new Vector2D(0, 0.1));
-        dolphin[0].addToNetwork(dolphin[1]); 
+
+        dolphin[0].velocity(new Vector2D(0, 0));
+        dolphin[1].velocity(new Vector2D(0, 0));
+
+        dolphin[0].addToNetwork(dolphin[1]);
+        dolphin[1].addToNetwork(dolphin[0]);
+
         info(dolphin);
         plotForces(dolphin);
         //simulate(dolphin);
@@ -39,15 +45,20 @@ public class TestGravity {
             }
             dolphin[0].accel(new Vector2D(0, 0));
             dolphin[1].accel(new Vector2D(0, 0));
-            Vector2D newVec = new Vector2D(dolphin[0].position().minus(dolphin[1].position()).unit().
+
+            Vector2D g = new Vector2D(dolphin[0].position().minus(dolphin[1].position()).unit().
                     times(dolphin[0].mass()*dolphin[1].mass()/Dolphin.distSquared(dolphin[1], dolphin[0])));
-            dolphin[1].accel().add(newVec);
-            newVec.reverse();
-            dolphin[0].accel().add(newVec);
-            dolphin[0].adjust(1);
+
+            dolphin[1].accel().add(g);
+            g.reverse();
+            dolphin[0].accel().add(g);
+
+            dolphin[0].adjust(1); //Step size controls accuracy.
             dolphin[1].adjust(1);
+
             dolphin[1].drawNode2(0.01, 0.01);
             dolphin[0].drawNode2(0.01, 0.01);
+
             double gForce = dolphin[0].mass()*dolphin[1].mass()/Dolphin.distSquared(dolphin[1],dolphin[0]);
             double cForce1 = dolphin[0].mass()*dolphin[0].velocity().lensq()/(Dolphin.dist(dolphin[1], dolphin[0]));
             double cForce2 = dolphin[1].mass()*dolphin[1].velocity().lensq()/(Dolphin.dist(dolphin[1], dolphin[0]));
@@ -80,16 +91,16 @@ public class TestGravity {
         /**
          * Display and other constants.
          */
-        final int yUp = 680, xUp = 800;              
-        final int xOffset = 60, yOffset = 60;         
+        final int yUp = 680, xUp = 800;
+        final int xOffset = 60, yOffset = 60;
         final int fontSize = 9;
         final int legendYOffset = 20;
         final int legendXOffset = 50;
-        final double st = 0, et = 8000;        
+        final double st = 0, et = 8000;
         final double minForce = 0.0;
         final double maxForce = 0.025;
-        final double timeStep = 1.0;               
-                
+        final double stepSize = 1.0;
+
         StdDraw.setCanvasSize(xUp, yUp);
         StdDraw.setXscale(0, xUp);
         StdDraw.setYscale(0, yUp);
@@ -134,16 +145,21 @@ public class TestGravity {
             StdDraw.filledCircle((xUp - xOffset)*((t - st)/(et - st)) + xOffset, ((yUp - yOffset)/(maxForce - minForce))*(cForce1 - minForce) + yOffset, 0.002);
             StdDraw.setPenColor(StdDraw.BLUE);
             StdDraw.filledCircle((xUp - xOffset)*((t - st)/(et - st)) + xOffset, ((yUp - yOffset)/(maxForce - minForce))*(cForce2 - minForce) + yOffset, 0.002);
+
             dolphin[0].accel(new Vector2D(0, 0));
             dolphin[1].accel(new Vector2D(0, 0));
-            Vector2D newVec = new Vector2D(dolphin[0].position().minus(dolphin[1].position()).unit().
+
+            Vector2D g = new Vector2D(dolphin[0].position().minus(dolphin[1].position()).unit().
                     times(dolphin[0].mass()*dolphin[1].mass()/Dolphin.distSquared(dolphin[1], dolphin[0])));
-            dolphin[1].accel().add(newVec);
-            newVec.reverse();
-            dolphin[0].accel().add(newVec);
-            dolphin[0].adjust(timeStep);
-            dolphin[1].adjust(timeStep);
-            t += timeStep;
+
+            dolphin[1].accel().add(g);
+            g.reverse();
+            dolphin[0].accel().add(g);
+
+            dolphin[0].adjust(stepSize);
+            dolphin[1].adjust(stepSize);
+
+            t += stepSize;
             //dolphin[1].drawNode2(0.01, 0.01);
             //dolphin[0].drawNode2(0.01, 0.01);
         }
