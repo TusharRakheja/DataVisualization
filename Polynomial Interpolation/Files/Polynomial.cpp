@@ -9,7 +9,7 @@
 #include <SDL_ttf.h>
 
 #define withZeros {}							// Just for fun, hehe.
-#define SC_HEIGHT 685
+#define SC_HEIGHT 685							
 #define SC_WIDTH 1200
 #define SC_XOFFSET 80
 #define SC_YOFFSET 31
@@ -22,7 +22,6 @@ double xAtPixel(int pixel, double hx, double lx) {
 	return (pixel*(hx - lx) + (SC_WIDTH*lx - 30 * hx)) / (SC_WIDTH - 30);
 }
 
-
 /*
  * Maps a y value to its corresponding pixel.
  * Helper function for Polynomial::Plot().
@@ -31,6 +30,11 @@ int pixelAtY(double y, double hy, double ly) {
 	return (SC_HEIGHT - 30)*(hy - y) / (hy - ly);
 }
 
+/*
+ * Constructor for a polynomial. 
+ * Takes in the name of a file containing the data set. 
+ * Prepares the matrix, and calls Gauss(), Jordan(), and Plot().
+ */
 Polynomial::Polynomial(string filename) {
 	fstream *file = new fstream(filename);
 	int count = 0;
@@ -67,6 +71,9 @@ Polynomial::Polynomial(string filename) {
 	Plot();
 }
 
+/*
+ * Converts the matrix into REF. 
+ */
 void Polynomial::Gauss() {
 	for (int i = 0; i < n; i++) {
 		float divisor = matrix[i][i];
@@ -81,7 +88,9 @@ void Polynomial::Gauss() {
 		}
 	}
 }
-
+/*
+ * Converts the matrix in REF into RREF.
+ */
 void Polynomial::Jordan() {
 	for (int i = n - 1; i >= 0; i--) {
 		for (int row = i - 1; row >= 0; row--) {
@@ -92,6 +101,9 @@ void Polynomial::Jordan() {
 	}
 }
 
+/*
+ * Prints the matrix on screen (for debugging).
+ */
 ostream& operator<<(ostream &out, const Polynomial &p) {
 	for (int i = 0; i < p.n; i++) {
 		for (int j = 0; j <= p.n; j++) {
@@ -102,6 +114,9 @@ ostream& operator<<(ostream &out, const Polynomial &p) {
 	return out;
 }
 
+/* 
+ * Plots the computed polynomial on screen.
+ */
 void Polynomial::Plot() {
 	bool quit = false;
 	SDL_Event event;
@@ -145,6 +160,19 @@ void Polynomial::Plot() {
 	SDL_DestroyRenderer(r);							  // Clean up allocated SDL resources.
 	SDL_DestroyWindow(w);
 	SDL_Quit();
+}
+
+/*
+ * Map a value x to its image y under this polynomial.
+ */
+double Polynomial::of(double x) {				
+	double y = 0;
+	double x_i = 1;
+	for (int i = 0; i < n; i++) {
+		y += matrix[i][n] * matrix[i][i] * x_i;
+		x_i *= x;
+	}
+	return y;
 }
 
 int main(int argc, char **argv) {

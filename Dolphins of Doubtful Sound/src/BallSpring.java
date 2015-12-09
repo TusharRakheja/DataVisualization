@@ -62,7 +62,10 @@ public class BallSpring
     * Idea : Use gradient descent on the PE of the system.
     */
 
-    public double sysPE();
+    public double sysPE()
+    {
+        return 0;
+    }
 
     public void iterateSoln()
     {
@@ -76,12 +79,12 @@ public class BallSpring
             bs.generateGraph();
 
             Font f = new Font("SansSerif", Font.PLAIN, 13);
-            StdDraw.setCanvasSize(800, 670);
+            StdDraw.setCanvasSize(800, 600);
             StdDraw.setXscale(0, 800);
-            StdDraw.setYscale(0, 670);
+            StdDraw.setYscale(0, 600);
             StdDraw.setFont(f);
 
-            Dolphins[0].DrawMe();
+            Dolphins[0].drawMe();
 
     }
 

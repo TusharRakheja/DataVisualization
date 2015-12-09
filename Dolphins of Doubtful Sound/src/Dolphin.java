@@ -21,6 +21,7 @@ public class Dolphin implements Comparable<Dolphin>, Iterable<Integer> {
     private Vector2D accel;                              // Acceleration for force-direction.
     private Vector2D velocity;                           // Velocity for force direction.
     private Vector2D position;
+    private int massIncrement;
     /**
      * This method is used to set the radius for the visualization.
      * @param r  the new radius of the peripheral ring for the dolphin graph.
@@ -48,6 +49,7 @@ public class Dolphin implements Comparable<Dolphin>, Iterable<Integer> {
         mass = 1;
         velocity = new Vector2D(0, 0);
         accel = new Vector2D(0, 0);
+        massIncrement = 2;
     }
     /**
      * Sets the angle for the current dolphin.
@@ -145,6 +147,11 @@ public class Dolphin implements Comparable<Dolphin>, Iterable<Integer> {
 //        else
 //            StdDraw.text(xText, yText, label, 180 + theta);
     }
+    public void eraseNode2(double rDolphin, double rLabel) {
+        StdDraw.setPenColor(StdDraw.WHITE);
+        StdDraw.setPenRadius(rDolphin + sizeOfNetwork()/300);  // The more the connections,
+        StdDraw.point(position.x(), position.y());                                     // the bigger the node.
+    }
     /**
      * Draws the dolphin (node).
      * @param rDolphin 
@@ -201,8 +208,10 @@ public class Dolphin implements Comparable<Dolphin>, Iterable<Integer> {
         if (!network.contains(that.id())) { 
             network.add(that.id());
             that.network.add(this.id()); 
-            mass *= 1;
-            that.mass *= 1;
+            mass += massIncrement;
+            massIncrement += 2;
+            that.mass += that.massIncrement;
+            that.massIncrement += 2;
         }
     }
     /**

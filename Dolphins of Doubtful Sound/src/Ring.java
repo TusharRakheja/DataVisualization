@@ -16,6 +16,7 @@ public class Ring {
      * @param args  conventional argument
      * @throws IOException  if URL is inaccessible.
      */
+    @SuppressWarnings("empty-statement")
     public static void main(String[] args) throws IOException {
         Dolphin.setRadius(270);
         Dolphin.setDelta(42);
@@ -74,8 +75,8 @@ public class Ring {
             dolphins[i].drawNodeOnly(0.01, StdDraw.BLACK);
         }
         //writeStatsToFile(dolphins, "Output.txt");
-        StdDraw.setPenRadius(0.002);
-        StdDraw.rectangle(60, 652, 50, 10);
+        //StdDraw.setPenRadius(0.002);
+        //StdDraw.rectangle(60, 652, 50, 10);
         double tolerance = 65;
         while (true) {
             // the location (x, y) of the mouse
@@ -87,14 +88,11 @@ public class Ring {
                     dolphins[i].drawNodeOnly(0.01, StdDraw.RED);
                     dolphins[i].drawNetworkNodes(0.01, StdDraw.RED, dolphins);
                     StdDraw.setPenColor(StdDraw.BLACK);
-                    String current = "Connections: " + dolphins[i].sizeOfNetwork();
-                    StdDraw.text(60, 650, current);
-                    while (Dolphin.distSquared(dolphins[i].x(), dolphins[i].y(), x, y) <= tolerance) {
-                        x = StdDraw.mouseX();
-                        y = StdDraw.mouseY();
-                    }
-                    StdDraw.setPenColor(StdDraw.WHITE);
-                    StdDraw.filledRectangle(60, 650, 49, 7);
+                    //String current = "Connections: " + dolphins[i].sizeOfNetwork();
+                    //StdDraw.text(60, 650, current);
+                    while (Dolphin.distSquared(dolphins[i].x(), dolphins[i].y(), StdDraw.mouseX(), StdDraw.mouseY()) <= tolerance);
+                    //StdDraw.setPenColor(StdDraw.WHITE);
+                    //StdDraw.filledRectangle(60, 650, 49, 7);
                     dolphins[i].drawNetworkEdges(0.0020, StdDraw.WHITE, dolphins);  // Doing this
                     dolphins[i].drawNetworkEdges(0.0020, StdDraw.WHITE, dolphins);  // twice will
                     dolphins[i].drawNetworkEdges(0.0020, edgeColor, dolphins);      // delay the 
