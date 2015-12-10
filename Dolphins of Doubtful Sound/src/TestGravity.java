@@ -10,15 +10,14 @@ public class TestGravity {
         dolphin[0].position(new Vector2D(400 + 75, 375));
         dolphin[1].position(new Vector2D(400 - 75, 375));
 
-        dolphin[0].velocity(new Vector2D(0, 0));
-        dolphin[1].velocity(new Vector2D(0, 0));
+        dolphin[0].velocity(new Vector2D(0, -0.1));
+        dolphin[1].velocity(new Vector2D(0, 0.1));
 
         dolphin[0].addToNetwork(dolphin[1]);
-        dolphin[1].addToNetwork(dolphin[0]);
 
         info(dolphin);
-        plotForces(dolphin);
-        //simulate(dolphin);
+        //plotForces(dolphin);
+        simulate(dolphin);
     }
     public static void info(Dolphin[] dolphin) {
         System.out.println("M1: " + dolphin[0].mass() + "\tM2: " + dolphin[1].mass());
@@ -46,12 +45,12 @@ public class TestGravity {
             dolphin[0].accel(new Vector2D(0, 0));
             dolphin[1].accel(new Vector2D(0, 0));
 
-            Vector2D g = new Vector2D(dolphin[0].position().minus(dolphin[1].position()).unit().
+            Vector2D f = new Vector2D(dolphin[0].position().minus(dolphin[1].position()).unit().
                     times(dolphin[0].mass()*dolphin[1].mass()/Dolphin.distSquared(dolphin[1], dolphin[0])));
-
-            dolphin[1].accel().add(g);
-            g.reverse();
-            dolphin[0].accel().add(g);
+            //accel = f / m
+            dolphin[1].accel().add(f.invtimes(dolphin[1].mass()));
+            f.reverse();
+            dolphin[0].accel().add(f.invtimes(dolphin[0].mass()));
 
             dolphin[0].adjust(1); //Step size controls accuracy.
             dolphin[1].adjust(1);

@@ -49,6 +49,11 @@ public class Vector2D {
     public Vector2D times(double scale) {
         return new Vector2D(this.x*scale, this.y*scale);
     }
+
+    public Vector2D invtimes(double scale) {
+        return new Vector2D(this.x/scale, this.y/scale);
+    }
+
     public Vector2D unit() {
         return new Vector2D(this.x/this.length(), this.y/this.length());
     }
