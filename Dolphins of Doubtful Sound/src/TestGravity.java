@@ -16,8 +16,8 @@ public class TestGravity {
         dolphin[0].addToNetwork(dolphin[1]);
 
         info(dolphin);
-        //plotForces(dolphin);
-        simulate(dolphin);
+        plotForces(dolphin);
+        //simulate(dolphin);
     }
     public static void info(Dolphin[] dolphin) {
         System.out.println("M1: " + dolphin[0].mass() + "\tM2: " + dolphin[1].mass());
@@ -136,8 +136,8 @@ public class TestGravity {
                 break;
             }
             double gForce = dolphin[0].mass()*dolphin[1].mass()/Dolphin.distSquared(dolphin[1],dolphin[0]);
-            double cForce1 = dolphin[0].mass()*dolphin[0].velocity().lensq()/(Dolphin.dist(dolphin[1], dolphin[0]));
-            double cForce2 = dolphin[1].mass()*dolphin[1].velocity().lensq()/(Dolphin.dist(dolphin[1], dolphin[0]));
+            double cForce1 = dolphin[0].mass()*dolphin[0].velocity().lensq()/((Dolphin.dist(dolphin[1], dolphin[0])/2));
+            double cForce2 = dolphin[1].mass()*dolphin[1].velocity().lensq()/((Dolphin.dist(dolphin[1], dolphin[0])/2));
             StdDraw.setPenColor(StdDraw.RED);
             StdDraw.filledCircle((xUp - xOffset)*((t - st)/(et - st)) + xOffset, ((yUp - yOffset)/(maxForce - minForce))*(gForce - minForce) + yOffset, 0.002);
             StdDraw.setPenColor(StdDraw.BLACK);
@@ -151,9 +151,9 @@ public class TestGravity {
             Vector2D g = new Vector2D(dolphin[0].position().minus(dolphin[1].position()).unit().
                     times(dolphin[0].mass()*dolphin[1].mass()/Dolphin.distSquared(dolphin[1], dolphin[0])));
 
-            dolphin[1].accel().add(g);
+            dolphin[1].accel().add(g.times(1/dolphin[1].mass()));
             g.reverse();
-            dolphin[0].accel().add(g);
+            dolphin[0].accel().add(g.times(1/dolphin[0].mass()));
 
             dolphin[0].adjust(stepSize);
             dolphin[1].adjust(stepSize);
@@ -163,7 +163,7 @@ public class TestGravity {
             //dolphin[0].drawNode2(0.01, 0.01);
         }
         System.out.println("Gravity eventual: " + dolphin[0].mass()*dolphin[1].mass()/Dolphin.distSquared(dolphin[1], dolphin[0]));
-        System.out.print("Centripetal eventual: " + dolphin[0].mass()*dolphin[0].velocity().lensq()/Dolphin.dist(dolphin[1], dolphin[0]));
-        System.out.print(" | " + dolphin[1].mass()*dolphin[1].velocity().lensq()/Dolphin.dist(dolphin[1], dolphin[0]));
+        System.out.print("Centripetal eventual: " + dolphin[0].mass()*dolphin[0].velocity().lensq()/(Dolphin.dist(dolphin[1], dolphin[0])/2));
+        System.out.print(" | " + dolphin[1].mass()*dolphin[1].velocity().lensq()/(Dolphin.dist(dolphin[1], dolphin[0])/2));
     }
 }
