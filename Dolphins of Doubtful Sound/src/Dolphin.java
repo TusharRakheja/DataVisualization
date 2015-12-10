@@ -1,18 +1,19 @@
 import java.awt.*;
-import java.util.*;    
+import java.util.*;
 import java.io.*;
 
 /**
- * Class to represent a dolphin, and methods to draw one on the canvas. 
+ * Class to represent a dolphin, and methods to draw one on the canvas.
  * @author <i> Tushar </i>
  */
 public class Dolphin implements Comparable<Dolphin>, Iterable<Integer> {
-    private static final double cX = 400.0, cY = 335.0;  // Coordinates of the canvas' center. 
+    private static final double cX = 400.0, cY = 335.0;  // Coordinates of the canvas' center.
     private static double currentAngle = 0;              // The first dolphin will be along theta = 0 degrees.
     private static final double increment = 5.8064;      // Each subsequent dolphin's angle in polar coordinates (degrees).
     private static double radius = 300.0;                // Radius in polar coordinates (set according to canvas).
     private static double delta = 2.0;                   // Controls separation between a dolphin node and its name (label).
-    
+
+
     private int id;                                      // Signifies array index (unsorted). Also used in edge connection.
     private String label;                                // The dolphin's name.
     private double x, y, theta;                          // Cartesian coordinates.
@@ -154,12 +155,12 @@ public class Dolphin implements Comparable<Dolphin>, Iterable<Integer> {
     }
     /**
      * Draws the dolphin (node).
-     * @param rDolphin 
+     * @param rDolphin
      */
     public void drawNodeOnly(double rDolphin, Color color) {
         StdDraw.setPenColor(color);
         StdDraw.setPenRadius(rDolphin + sizeOfNetwork()/650.0);
-        StdDraw.point(x, y);  
+        StdDraw.point(x, y);
     }
     /**
      * Draws the edges from this dolphin to all the other dolphins in the network.
@@ -168,8 +169,8 @@ public class Dolphin implements Comparable<Dolphin>, Iterable<Integer> {
      */
     public void drawNetwork(double rEdge, Dolphin[] dolphins) {
         StdDraw.setPenRadius(rEdge);
-        for (Dolphin dolphin : dolphins) 
-            if (this.network.contains(dolphin.id())) 
+        for (Dolphin dolphin : dolphins)
+            if (this.network.contains(dolphin.id()))
                 StdDraw.line(this.x, this.y, dolphin.x(), dolphin.y());
     }
     /**
@@ -181,9 +182,9 @@ public class Dolphin implements Comparable<Dolphin>, Iterable<Integer> {
     public void drawNetworkEdges(double rEdge, Color color, Dolphin[] dolphins) {
         StdDraw.setPenRadius(rEdge);
         StdDraw.setPenColor(color);
-        for (Dolphin dolphin : dolphins) 
-            if (this.network.contains(dolphin.id())) 
-                 StdDraw.line(this.x, this.y, dolphin.x(), dolphin.y());            
+        for (Dolphin dolphin : dolphins)
+            if (this.network.contains(dolphin.id()))
+                 StdDraw.line(this.x, this.y, dolphin.x(), dolphin.y());
     }
     /**
      * Draws the dolphins in this dolphin's network.
@@ -194,20 +195,20 @@ public class Dolphin implements Comparable<Dolphin>, Iterable<Integer> {
     public void drawNetworkNodes(double rEdge, Color color, Dolphin[] dolphins) {
         StdDraw.setPenRadius(rEdge);
         StdDraw.setPenColor(color);
-        for (Dolphin dolphin : dolphins) 
+        for (Dolphin dolphin : dolphins)
             if (this.network.contains(dolphin.id()))
                 dolphin.drawNodeOnly(rEdge, color);
     }
     /**
-     * Adds a new dolphin (that) to this one's network and vice versa. 
+     * Adds a new dolphin (that) to this one's network and vice versa.
      * This and that communicated with each other.
-     * 
-     * @param that  the dolphin this communicated with. 
+     *
+     * @param that  the dolphin this communicated with.
      */
     public void addToNetwork(Dolphin that) {
-        if (!network.contains(that.id())) { 
+        if (!network.contains(that.id())) {
             network.add(that.id());
-            that.network.add(this.id()); 
+            that.network.add(this.id());
             mass += massIncrement;
             massIncrement += 2;
             that.mass += that.massIncrement;
@@ -216,14 +217,14 @@ public class Dolphin implements Comparable<Dolphin>, Iterable<Integer> {
     }
     /**
      * Returns the id of the dolphin.
-     * @return 
+     * @return
      */
     public int id() {
         return this.id;
     }
     /**
      * Returns the size of this dolphin's network.
-     * 
+     *
      * @return  the number other dolphins in this one's network (network size).
      */
     public int sizeOfNetwork() {
@@ -243,14 +244,14 @@ public class Dolphin implements Comparable<Dolphin>, Iterable<Integer> {
      * Writes the network sizes their frequencies in a file (in ascending order).
      * @param dolphins  the array containing the dolphin nodes.
      * @param filename  the filename.
-     * @throws IOException 
+     * @throws IOException
      */
     public static void writeStatsToFile(Dolphin[] dolphins, String filename) throws IOException {
         Dolphin[] dolphins2 = new Dolphin[62];
         System.arraycopy(dolphins, 0, dolphins2, 0, 62);
         Arrays.sort(dolphins2);
         File output = new File(filename);
-        FileWriter o = new FileWriter(output);                          
+        FileWriter o = new FileWriter(output);
         PrintWriter out = new PrintWriter(o);
         int count = 0; int size = dolphins2[0].sizeOfNetwork();
         for (int i = 0; i < 62; i++) {
@@ -264,7 +265,7 @@ public class Dolphin implements Comparable<Dolphin>, Iterable<Integer> {
             }
         }
         out.close();
-    }    
+    }
     /**
      * Just a small method to return the squaredDistance b/w two points.
      * @param x0  x coordinate of point 1.
@@ -331,14 +332,17 @@ public class Dolphin implements Comparable<Dolphin>, Iterable<Integer> {
     public Vector2D position() {
         return position;
     }
-    public void adjustPosition(double timeStep) {
-        this.position.add(this.velocity.times(timeStep).plus(this.accel.times(0.5*timeStep*timeStep)));
+
+    public void adjustPosition(double stepSize) {
+        this.position.add(this.velocity.times(stepSize));
     }
-    public void adjustVelocity(double timeStep) {
-        this.velocity.add(this.accel.times(timeStep));
+
+    public void adjustVelocity(double stepSize) {
+        this.velocity.add(this.accel.times(stepSize));
     }
-    public void adjust(double timeStep) {
-        adjustPosition(timeStep);
-        adjustVelocity(timeStep);
+
+    public void adjust(double stepSize) {
+        adjustVelocity(stepSize);
+        adjustPosition(stepSize);
     }
 }
