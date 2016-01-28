@@ -19,7 +19,7 @@ private:
 		}
 	};
 	Matrix *matrix;							// The augmented matrix.
-	int n;								// The number of data points (= degree of polynomial).
+	int n;								// The number of data points (= degree of polynomial - 1).
 	double lx, hx, ly, hy;						// The x and y ranges of the set of data points (respectively). 
 	void Gauss();							// Performs Gaussian elimination on the augmented matrix.
 	void Jordan();							// Converts the REF Matrix obtained from Gauss() to RREF.
